@@ -6,7 +6,10 @@ import { toast } from 'react-toastify';
 import { CommonDataTable } from '../../CustomHooks/CustomDataTable';
 import CreateManageProcessingActivity from './CreateManageProcessingActivity';
 import { useNavigate } from 'react-router-dom';
+import CommonTable from '../commonTable/CommonTable';
 import ConfirmModal from './ConfirmModal';
+import { useTranslation } from 'react-i18next';
+
 
 interface DepartmentRow {
   id: number;
@@ -18,15 +21,20 @@ interface DepartmentRow {
   email: string;
   phone: string;
 }
+
+
+
+export default function ManageProcessingActivity() {
+const { t } = useTranslation();
 const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Dept. Name', accessor: 'deptName' },
-  { header: 'Active', accessor: 'active' },
-  { header: 'Description', accessor: 'description' },
-  { header: 'PA Manager', accessor: 'paManager' },
-  { header: 'PA Type', accessor: 'paType' },
-  { header: 'Email', accessor: 'email' },
-  { header: 'Phone', accessor: 'phone' },
+  { header: t('id'), accessor: 'id' },
+  { header: t('deptName'), accessor: 'deptName' },
+  { header: t('active'), accessor: 'active' },
+  { header: t('description'), accessor: 'description' },
+  { header: t('paManager'), accessor: 'paManager' },
+  { header: t('paType'), accessor: 'paType' },
+  { header: t('email'), accessor: 'email' },
+  { header: t('phone'), accessor: 'phone' },
 ];
 const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
@@ -37,10 +45,8 @@ const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => (
   paType: 'Mandatory/Regulatory',
   email: 'Satyam.sinha@yopomail.com',
   phone: '9876543210',
-}));
+}))
 
-
-export default function ManageProcessingActivity() {
   const [selected, setSelected] = useState<string>('one');
   const [search, setSearch] = useState('');
   const [appliedSearch, setAppliedSearch] = useState('');
@@ -108,9 +114,9 @@ export default function ManageProcessingActivity() {
   return (
     <div>
       <SelectHeader
-        title="Manage Processing Activity"
+        title={t("ManageProcessingActivity")}
         showRiskLevel={false}
-        Selecttitle="Processing Activity:"
+        Selecttitle="processingActivity"
         options={options}
         selected={selected}
         setSelected={setSelected}
@@ -140,10 +146,13 @@ export default function ManageProcessingActivity() {
       </div>
 
       <div className="text-sm text-gray-600 mt-2 text-right">
-        Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} entries
+        {t('Showing')} {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} {t('of')} {filteredData.length} {t('entries')}
       </div>
 
       {/* <CreateManageProcessingActivity /> */}
+      
     </div>
+
+
   )
 }

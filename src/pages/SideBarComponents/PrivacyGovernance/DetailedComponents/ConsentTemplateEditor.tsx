@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import SelectHeader from '../../../Components/SelectHeader';
 import ConsentIcon from '../../../../components/DPDPIcons/ConsentIcon';
+import { useGetApiCall } from '../../../../CustomHooks/useGetApiCall';
 
 const initialContent = `
   <p>Dear Customer/Data Principal,</p>
@@ -29,6 +30,16 @@ const initialContent = `
 const ConsentTemplateEditor: React.FC = () => {
     const [content, setContent] = useState(initialContent);
     const [isEditing, setIsEditing] = useState(true);
+      const [selected, setSelected] = useState<string>('one');
+        const { data: optionsData } = useGetApiCall({
+          url: '/processing_activities',
+          onSuccess: (res: any) => console.log('Options List:', res),
+        });
+      
+        const options = optionsData?.processingActivities?.map((item: any) => ({
+          label: item?.processingActivitiesName,
+          value: item?.id,
+        })) || [];
 
     return (
         <>
@@ -36,10 +47,19 @@ const ConsentTemplateEditor: React.FC = () => {
                 title="Consent Templates"
                    showRiskLevel={false}
                    leftIcon={<ConsentIcon width={30} height={30} />}
+                   Selecttitle="Type :"
+                   options={options}
+                   selected={selected}
+                   setSelected={setSelected}
+
+
+                />
 
 
 
-            />
+            
+              
+       
             <div className="grid grid-cols-3 gap-4 mb-4">
                 <div>
                     <strong>Template Name:</strong> Breach Notification
@@ -87,7 +107,7 @@ const ConsentTemplateEditor: React.FC = () => {
                     {/* <div className="space-x-2">
                         <button
                             onClick={() => setIsEditing(true)}
-                            className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+                            className="btn text-white px-4 py-1 rounded hover:bg-blue-700"
                         >
                             Edit
                         </button>

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import CommonToolbar from '../../../Components/CommonToolbar';
 import CommonTabs from '../../../../CustomHooks/CommonTabPanel';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
+import { useTranslation } from 'react-i18next';
 type DepartmentRow = {
   id: number;
   processingActivity: string;
@@ -16,14 +17,6 @@ type DepartmentRow = {
   notDelivered: number;
 };
 
-const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Processing Activity", accessor: "processingActivity" },
-  { header: "Total Data Principals", accessor: "total" },
-  { header: "Delivered", accessor: "delivered" },
-  { header: "Initiated", accessor: "initiated" },
-  { header: "Not Delivered", accessor: "notDelivered" },
-];
 
 
 const tableData = [
@@ -60,6 +53,16 @@ export default function PrivacyNoticeTableDash() {
   const [perPage, setPerPage] = useState(10);
   const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+
+  const { t } = useTranslation();
+const columns = [
+  { header: t("ID"), accessor: "id" },
+  { header: t("ProcessingActivity"), accessor: "processingActivity" },
+  { header: t("TotalDataPrincipals"), accessor: "total" },
+  { header: t("Delivered"), accessor: "delivered" },
+  { header: t("Initiated"), accessor: "initiated" },
+  { header: t("NotDelivered"), accessor: "notDelivered" },
+];
 
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
@@ -130,7 +133,7 @@ export default function PrivacyNoticeTableDash() {
 
   const tabs = [
     {
-      title: 'Delivered (10)',
+      title: t('Delivered'),
       content: <>
          <CommonDataTable<DepartmentRow>
                 columns={columns}
@@ -142,7 +145,7 @@ export default function PrivacyNoticeTableDash() {
       </>,
     },
     {
-      title: 'Initiated (530)',
+      title: t('initiated'),
     content: <>
       <CommonDataTable<DepartmentRow>
              columns={columns}
@@ -153,7 +156,7 @@ export default function PrivacyNoticeTableDash() {
       </>,
     },
     {
-      title: 'Not Delivered (10)',
+      title: t('NotDelivered'),
        content: <>
      <CommonDataTable<DepartmentRow>
             columns={columns}
@@ -173,7 +176,7 @@ export default function PrivacyNoticeTableDash() {
                 riskLevel="high"
                 showRiskLevel={true}
                     leftIcon={<ConsentIcon width={30} height={30} />}
-                Selecttitle="Processing Activity"
+                Selecttitle={t("ProcessingActivity")}
                 options={options}
                 selected={selected}
                 setSelected={setSelected}

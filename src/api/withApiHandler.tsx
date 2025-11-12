@@ -14,9 +14,10 @@ const withApiHandler = (WrappedComponent:any) => {
     const navigate = useNavigate();
     const handleApiError = useErrorHandler();
 
-    const axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
-    });
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true, // ✅ Always send cookies / auth credentials
+});
 
     axiosInstance.interceptors.request.use(
       (config) => {

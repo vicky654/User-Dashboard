@@ -33,6 +33,7 @@ const LoginBoxed = () => {
     const [flag, setFlag] = useState(themeConfig.locale);
 
     const submitForm = () => {
+        console.log('Form Submitted');
         navigate('/');
     };
 

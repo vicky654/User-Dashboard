@@ -63,7 +63,7 @@
   box-shadow:
     0px 4px 4px 0px rgba(0, 0, 0, 0.3),
     0px 8px 12px 6px rgba(0, 0, 0, 0.15);
-  background-color: rgba(var(--color-primary));
+  /* background-color: rgba(var(--color-primary)); */
   color: #fff;
   /* ensure text is readable */
   border: none;
@@ -71,8 +71,9 @@
   padding: 10px 16px;
   cursor: pointer;
 }
-.bg-primary{
-    background-color: rgba(var(--color-primary));
+
+.bg-primary {
+  background-color: rgba(var(--color-primary));
 }
 
 
@@ -121,24 +122,21 @@ table tfoot tr {
   font-size: 14px;
   color: #374151;
   /* gray-700 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   appearance: none;
   /* remove native arrow */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px 16px;
-  box-shadow:
-    0px 4px 4px 0px rgba(0, 0, 0, 0.3),
-    /* Layer 2 */
-    0px 8px 12px 6px rgba(0, 0, 0, 0.15)
+
 }
 
 .form-select1:focus {
   outline: none;
   border-color: #3b82f6;
   /* blue-500 */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+
 }
 
 .form-select1 option {
@@ -158,29 +156,130 @@ table tfoot tr {
 .mantine-InputWrapper-root {
   width: 100%;
 }
-.commonHeader{
-  box-shadow: 0px 4px 4px 0px #0000004D;
-/* 
-box-shadow: 0px 8px 12px 6px #00000026; */
+
+.commonHeader {
+  border-bottom: 1px solid #ddd;
 
 }
+
 .sidebar {
-  /* box-shadow: 0px 4px 4px 0px #0000004D; */
-  box-shadow: 0px 8px 12px 6px #00000026;
+  border-right: 1px solid #ddd;
 }
+
 .kMgreK {
 
-    min-height: 35px !important;
- 
+  min-height: 35px !important;
+
 }
 
 .boxShadowcard {
   border-radius: 30px;
-  box-shadow: 0 4px 10px 5px rgba(0, 0, 0, 0.25);
+  border: 1px solid #ddd;
   background: #fff;
   padding: 20px;
-  height: 340px;       /* fixed card height */
-  width: 100%;         /* take available width */
-  display: flex;       /* make children align properly */
+  height: 340px;
+  /* fixed card height */
+  width: 100%;
+  /* take available width */
+  display: flex;
+  /* make children align properly */
   flex-direction: column;
+}
+
+/* global.css or component.css */
+.color-input {
+  -webkit-appearance: none;
+  /* Safari/Chrome */
+  -moz-appearance: none;
+  /* Firefox */
+  appearance: none;
+  padding: 0;
+  /* remove outer padding */
+  border-radius: 9999px;
+  /* make circular */
+  overflow: hidden;
+  width: 3rem;
+  /* match w-12 (48px) if you use tailwind base 4px -> 12*4 = 48 */
+  height: 3rem;
+  display: inline-block;
+}
+
+/* Chrome / Edge / Safari: remove inner wrapper padding and set swatch shape */
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 9999px;
+}
+
+/* Firefox: style the swatch */
+.color-input::-moz-color-swatch {
+  border: none;
+  border-radius: 9999px;
+}
+
+/* Optional focus style */
+.color-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+  /* subtle blue ring */
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / 30%) !important;
+}
+
+.sidebar-color,
+.commonHeader {
+  background-color: rgb(var(--app-surface-color));
+  transition: background-color 0.3s;
+}
+
+.btn {
+
+  transition: background-color 0.3s;
+  color: white;
+  /* or dynamic font variable */
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 72%) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11111111;
+}
+
+
+
+.main-content {
+  padding: 0px 100px;
+}
+thead {
+
+    background-color:#0000 !important;
+}
+tr{
+  background-color: none !important;
+}
+
+.primary-btn {
+  
+    background-color: #2563eb;
+    background-image: none;
+}
+.secondary-btn {
+  
+    background-color: #f03e3e;
+    background-image: none;
 }

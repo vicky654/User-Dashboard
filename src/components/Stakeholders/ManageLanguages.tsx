@@ -1,6 +1,7 @@
 import React from "react";
 import SelectHeader from "../../pages/Components/SelectHeader";
 import ToggleSwitch from "../../CustomComponents/ToggleSwitch";
+import { useTranslation } from "react-i18next";
 
 interface LanguageToggleProps {
     language: string;
@@ -22,12 +23,14 @@ const LanguageToggle: React.FC<LanguageToggleProps> = ({
             size="sm"
             checked={checked}
             onChange={onChange}
+            
         />
 
     </div>
 );
 
 const ManageLanguages = () => {
+    const {t} = useTranslation();
     const [languages, setLanguages] = React.useState([
         { language: "Assamese", checked: true },
         { language: "Bengali", checked: true },
@@ -65,7 +68,7 @@ const ManageLanguages = () => {
 
     return (
         <>
-            <SelectHeader title="Manage Languages" showRiskLevel={false} />
+            <SelectHeader title={t("manageLanguages")} showRiskLevel={false} />
             <div className="bg-white p-6 rounded-2xl shadow-md grid grid-cols-3 gap-x-8 gap-y-4">
 
 

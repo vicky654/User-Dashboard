@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { CommonDataTable } from "../../CustomHooks/CustomDataTable";
 import ToggleSwitch from "../../CustomComponents/ToggleSwitch";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface StakeholderRow {
   id: number;
@@ -19,13 +20,13 @@ interface StakeholderRow {
 }
 
 export default function ManageInternalStakeholders() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState<string>("one");
   const [search, setSearch] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [selectedRows, setSelectedRows] = useState<StakeholderRow[]>([]);
-
   const [tableData, setTableData] = useState<StakeholderRow[]>([
     {
       id: 1,
@@ -129,15 +130,27 @@ export default function ManageInternalStakeholders() {
   }));
 
   const columns = [
-    { header: "ID", accessor: "id" },
-    { header: "Name", accessor: "name" },
-    { header: "Active", accessor: "active" },
-    { header: "Email", accessor: "email" },
-    { header: "Phone", accessor: "phone" },
-    { header: "Roles", accessor: "roles" },
-    { header: "Latest Authentication", accessor: "latestAuth" },
-    { header: "Extras", accessor: "extras" },
+
+   { header: t('id'), accessor: 'id' },
+    { header: t("name"), accessor: "name" },
+    { header: t("active"), accessor: "active" },
+    { header: t("email"), accessor: "email" },
+    { header: t("phone"), accessor: "phone" },
+    { header: t("roles"), accessor: "roles" },
+    { header: t("latestAuth"), accessor: "latestAuth" },
+    { header: t("extras"), accessor: "extras" },
   ];
+  
+// const columns = [
+//   { header: t('id'), accessor: 'id' },
+//   { header: t('deptName'), accessor: 'deptName' },
+//   { header: t('active'), accessor: 'active' },
+//   { header: t('description'), accessor: 'description' },
+//   { header: t('paManager'), accessor: 'paManager' },
+//   { header: t('paType'), accessor: 'paType' },
+//   { header: t('email'), accessor: 'email' },
+//   { header: t('phone'), accessor: 'phone' },
+// ];
 
   const navigate = useNavigate();
   const handleCreate = () => {
@@ -146,7 +159,7 @@ export default function ManageInternalStakeholders() {
   return (
     <div>
       <SelectHeader
-        title="Manage Internal Stakeholders"
+        title={t("ManageInternalStakeholders")}
         showRiskLevel={false}
         Selecttitle="Roles:"
         options={options}
@@ -179,9 +192,7 @@ export default function ManageInternalStakeholders() {
       </div>
 
       <div className="text-sm text-gray-600 mt-2 text-right">
-        Showing {(currentPage - 1) * perPage + 1}–
-        {Math.min(currentPage * perPage, filteredData.length)} of{" "}
-        {filteredData.length} entries
+        {t('Showing')} {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} {t('of')} {filteredData.length} {t('entries')}
       </div>
     </div>
   );

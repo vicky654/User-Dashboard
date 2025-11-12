@@ -6,6 +6,10 @@
   --color-secondary-light: 235 228 247; /* default #ebe4f7 */
   --color-secondary-dark-light: 128, 93, 202, 0.15;
 
+  --app-surface-color: 255, 255, 255; /* default #ffffff */
+  --app-surface-color-light: 255, 255, 255; /* default #fafafa */
+  --app-surface-color-dark: 255, 255, 255; /* default #060818 */
+
  --text-black: rgba(96, 96, 96, 1); /* valid RGBA */
 }
 
@@ -141,7 +145,7 @@ hover:text-primary hover:before:!bg-primary ltr:before:mr-2 rtl:before:ml-2 dark
     }
 
     .main-container .main-content {
-        @apply transition-all duration-300 lg:ltr:ml-[179px] lg:rtl:mr-[179px];
+        @apply transition-all duration-300 ;
     }
 
     /* Horizontal layouts */

@@ -37,7 +37,7 @@ export default function ToggleSwitch({
         onChange={onChange}
       />
       <div
-        className={`relative ${sizeClasses[size].wrapper} bg-gray-200 rounded-full 
+        className={`relative ${sizeClasses[size].wrapper} bg-green-200 rounded-full 
           peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 
           dark:peer-focus:ring-green-800 peer dark:bg-gray-700 
           peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full 

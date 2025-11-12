@@ -6,6 +6,7 @@ import CommonTabs from '../../../../CustomHooks/CommonTabPanel';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
 import CookieManagementDPOInfo from './CookieManagementDPOInfo';
 import CookieManagementConfiguration from './CookieManagementConfiguration';
+import { useTranslation } from 'react-i18next';
 interface DepartmentRow {
   id: number;
   deptName: string;
@@ -16,13 +17,26 @@ interface DepartmentRow {
   email: string;
   phone: string;
 }
+
+export default function CookieManagementItemDetails() {
+
+  const [isEditable, setIsEditable] = useState(false);
+    const [selected, setSelected] = useState<string>('one');
+    const [search, setSearch] = useState('');
+    const [appliedSearch, setAppliedSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setPerPage] = useState(10);
+ 
+    const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+  
+const { t } = useTranslation();
 const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Website', accessor: 'deptName' },
-  { header: 'Cookie', accessor: 'active' },
-  { header: 'Expiry', accessor: 'description' },
-  { header: 'Cookie Category', accessor: 'paManager' },
-  { header: 'Cookie Description', accessor: 'paType' },
+  { header: t('ID'), accessor: 'id' },
+  { header: t('Website'), accessor: 'deptName' },
+  { header: t('Cookie'), accessor: 'active' },
+  { header: t('Expiry'), accessor: 'description' },
+  { header: t('Cookie Category'), accessor: 'paManager' },
+  { header: t('Cookie Description'), accessor: 'paType' },
 
 ];
 const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => ({
@@ -35,18 +49,7 @@ const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => (
   email: 'Satyam.sinha@yopomail.com',
   phone: '9876543210',
 }));
-export default function CookieManagementItemDetails() {
-
-  const [isEditable, setIsEditable] = useState(false);
-    const [selected, setSelected] = useState<string>('one');
-    const [search, setSearch] = useState('');
-    const [appliedSearch, setAppliedSearch] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [perPage, setPerPage] = useState(10);
-    const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
-    const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
-  
-
+   const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
   const formik = useFormik({
     initialValues: {
       Name: 'DPDP Consultants Privacyium Tech Pvt. Ltd. Outgoing Mail Server',
@@ -110,7 +113,7 @@ export default function CookieManagementItemDetails() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-800">Cookie Management Item Details</h2>
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+          className="px-6 py-2 btn text-white rounded-lg shadow hover:bg-blue-700"
           onClick={() => setIsEditable((prev) => !prev)}
         >
           {isEditable ? 'Cancel' : 'Edit'}

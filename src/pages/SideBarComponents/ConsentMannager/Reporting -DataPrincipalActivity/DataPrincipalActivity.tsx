@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import SelectHeader from '../../../Components/SelectHeader';
 import ConsentIcon from '../../../../components/DPDPIcons/ConsentIcon';
 import DataPrincipalFilterModal from './DataPrincipalFilterModal';
+import { useTranslation } from 'react-i18next';
 
 
 // Define the type
@@ -63,17 +64,6 @@ const tableData: DepartmentRow[] = [
   },
 ];
 
-// Columns for a table component
-const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Data Principal Email", accessor: "DataPrincipalEmail" },
-  { header: "Processing Activity", accessor: "ProcessingActivity" },
-  { header: "Template Version", accessor: "TemplateVersion" },
-  { header: "IP Address", accessor: "IPAddress" },
-  { header: "Status", accessor: "Status" },
-  { header: "Consent Rights Date", accessor: "ConsentRightsDate" },
-  { header: "Consent Validity", accessor: "ConsentValidity" },
-];
 // Initial data for table (can be used as default state)
 const initialData = tableData.map((item) => ({
   id: item.id,
@@ -99,7 +89,18 @@ export default function DataPrincipalActivity() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
  
-
+const { t } = useTranslation();
+// Columns for a table component
+const columns = [
+  { header: t("ID"), accessor: "id" },
+  { header: t("DataPrincipalEmail"), accessor: "DataPrincipalEmail" },
+  { header: t("ProcessingActivity"), accessor: "ProcessingActivity" },
+  { header: t("TemplateVersion"), accessor: "TemplateVersion" },
+  { header: t("IPAddress"), accessor: "IPAddress" },
+  { header: t("Status"), accessor: "Status" },
+  { header: t("ConsentRightsDate"), accessor: "ConsentRightsDate" },
+  { header: t("ConsentValidity"), accessor: "ConsentValidity" },
+];
 
 
 

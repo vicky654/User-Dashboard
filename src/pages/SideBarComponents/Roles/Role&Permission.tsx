@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Module {
   name: string;
@@ -60,6 +61,7 @@ const modules: Module[] = [
 
 
 const RightsDetail: React.FC = () => {
+  const {t} = useTranslation();
   const [openModules, setOpenModules] = useState<{ [key: string]: boolean }>({});
   const [permissions, setPermissions] = useState<Permissions>({});
   const [permissionError, setPermissionError] = useState(false);
@@ -68,7 +70,7 @@ const RightsDetail: React.FC = () => {
       roleName: '',
     },
     validationSchema: Yup.object({
-      roleName: Yup.string().required('Role name is required'),
+      roleName: Yup.string().required(t('RoleNameRequired')),
     }),
      onSubmit: () => {
       if (Object.keys(permissions).length === 0) {
@@ -150,13 +152,13 @@ const RightsDetail: React.FC = () => {
 
   return (
     <>
-       <span className="text-lg font-semibold text-gray-800 py-4 dark:text-white">Roles & Permissions</span>
+       <span className="text-lg font-semibold text-gray-800 py-4 dark:text-white">{t("RolesPermissions")}</span>
    <form onSubmit={formik.handleSubmit} className=" mx-auto p-6 space-y-2 bg-white rounded shadow">
-      <label className="block text-md font-medium text-gray-700">Role Name <span className="text-red-500">*</span></label>
+      <label className="block text-md font-medium text-gray-700">{t("RoleName")} <span className="text-red-500">*</span></label>
       <input
         type="text"
         name="roleName"
-        placeholder="Enter role name"
+        placeholder={t("EnterRoleName")}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.roleName}
@@ -167,7 +169,7 @@ const RightsDetail: React.FC = () => {
       )}
 
       {modules.map((mod) => (
-        <div key={mod.name} className="border rounded-lg bg-gray-50 shadow-sm">
+        <div key={mod.name} className="border rounded-lg bg-gray-50 ">
           <div
             className="flex justify-between items-center p-3 cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
             onClick={() => toggleModule(mod.name)}
@@ -221,14 +223,14 @@ const RightsDetail: React.FC = () => {
       ))}
 
       {permissionError && (
-        <p className="text-red-500 text-sm">At least one permission is required</p>
+        <p className="text-red-500 text-sm">{t("Atleast")}</p>
       )}
 
       <button
         type="submit"
-        className="bg-blue-600  hover:bg-blue-700 text-white px-6 py-2 rounded shadow"
+        className="btn  hover:bg-blue-700 text-white px-6 py-2 rounded shadow"
       >
-        Save Role 
+        {t("SaveRole")}
 
       </button>
     </form>

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
+// import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import ConsentIcon from '../../../../components/DPDPIcons/ConsentIcon';
+import SelectHeader from '../../../Components/SelectHeader';
 
 // Original DepartmentRow type
 type DepartmentRow = {
@@ -61,16 +65,25 @@ const tableData = [
     functonal: "No"
   }
 ];
+
+export default function CookieConsentView() {
+  const [isEditable, setIsEditable] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+
+  const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const { t } = useTranslation();
 const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Name", accessor: "name" },
-  { header: "Client", accessor: "client" },
-  { header: "Consent Time", accessor: "consenttime" },
-  { header: "Device Type", accessor: "devicetype" },
-  { header: "IP Address", accessor: "ipaddress" },
-  { header: "Analytics", accessor: "analytics" },
-  { header: "Targeting", accessor: "targating" },
-  { header: "Functional", accessor: "functonal" },
+  { header: t("ID"), accessor: "id" },
+  { header: t("Name"), accessor: "name" },
+  { header: t("Client"), accessor: "client" },
+  { header: t("Consent Time"), accessor: "consenttime" },
+  { header: t("Device Type"), accessor: "devicetype" },
+  { header: t("IP Address"), accessor: "ipaddress" },
+  { header: t("Analytics"), accessor: "analytics" },
+  { header: t("Targeting"), accessor: "targating" },
+  { header: t("Functional"), accessor: "functonal" },
 ];
 
 // Convert DepartmentRow → Common Table Format
@@ -85,14 +98,7 @@ const initialData = tableData.map((item, index) => ({
   targating: item.targating,
   functonal: item.functonal
 }));
-export default function CookieConsentView() {
-  const [isEditable, setIsEditable] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-  const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
-  const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
-  const [appliedSearch, setAppliedSearch] = useState('');
-  
+
   const formik = useFormik({
     initialValues: {
       Name: 'DPDP Consultants', // Service provider
@@ -129,7 +135,13 @@ const fields: (keyof typeof formik.values)[] = [
   );
   return (
     <>
-  
+     <SelectHeader
+                title="Cookie Consent "
+                riskLevel="high"
+                showRiskLevel={false}
+                    leftIcon={<ConsentIcon width={30} height={30} />}
+             
+            />
     <div className=" p-6 rounded-md shadow border border-gray-200">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-orange-600">DPDP Consultants</h2>

@@ -21,7 +21,7 @@ export const dummyDonutData = [
 
 export const dummyStats = [
   {
-    label: 'Consented Percentage',
+    label: 'consentedPercentage',
     value: '15%',
     change: '+18%',
     status: 'up',
@@ -29,7 +29,7 @@ export const dummyStats = [
     bgColor: '#6366F1',
   },
   {
-    label: 'Withdrawn Percentage',
+    label: 'withdrawnPercentage',
     value: '15%',
     change: '+18%',
       count:"1.5K",

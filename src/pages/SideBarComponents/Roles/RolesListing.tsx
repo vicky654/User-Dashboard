@@ -7,17 +7,9 @@ import SelectHeader from '../../Components/SelectHeader';
 import CommonToolbar from '../../Components/CommonToolbar';
 import { CommonDataTable } from '../../../CustomHooks/CustomDataTable';
 import RoleIcon from '../../../components/DPDPIcons/RoleIcon';
+// import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
-const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Role', accessor: 'role' },
-  { header: 'Departments', accessor: 'department' },
-  { header: 'Category', accessor: 'category' },
-  { header: 'Modules', accessor: 'modules' },
-  { header: 'Accesses', accessor: 'accesses' },
-  { header: 'Created On', accessor: 'createdOn' },
-  { header: 'Last updated on', accessor: 'lastUpdatedOn' },
-];
 
 interface TemplateRow {
   id: number;
@@ -92,6 +84,19 @@ const RolesListing = () => {
   const [tableData, setTableData] = useState<TemplateRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<TemplateRow[]>([]);
 
+
+  const { t } = useTranslation();
+const columns = [
+  { header: t('ID'), accessor: 'id' },
+  { header: t('Role'), accessor: 'role' },
+  { header: t('Departments'), accessor: 'department' },
+  { header: t('Category'), accessor: 'category' },
+  { header: t('Modules'), accessor: 'modules' },
+  { header: t('Accesses'), accessor: 'accesses' },
+  { header: t('CreatedOn'), accessor: 'createdOn' },
+  { header: t('Lastupdatedon'), accessor: 'lastUpdatedOn' },
+];
+
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
     onSuccess: (res: any) => console.log('Options List:', res),
@@ -139,12 +144,12 @@ const RolesListing = () => {
   return (
     <>
       <SelectHeader
-        title="Roles Assign"
+        title={t("RolesAssign")}
         showRiskLevel={false}
         Selecttitle="Type:"
         leftIcon={<RoleIcon width={20} height={20} />}
         showButton={true}
-        buttonText="Add Role"
+        buttonText={t("AddRole")}
         buttonLink="/roles-and-permissions"
       />
 

@@ -8,6 +8,8 @@ import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
 
 
 import CreateIcon from '../../../../components/DPDPIcons/CreateIcon';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 interface TemplateRow {
   id: number;
@@ -20,15 +22,20 @@ interface TemplateRow {
   extra: string;
 }
 
+
+const ConsentManager = () => {
+
+
+  const { t } = useTranslation();
 const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Template Name', accessor: 'templateName' },
-  { header: 'Template Type', accessor: 'templateType' },
-  { header: 'Language', accessor: 'language' },
-  { header: 'Sub Type', accessor: 'subType' },
-  { header: 'Created On', accessor: 'createdOn' },
-  { header: 'Last updated on', accessor: 'lastUpdatedOn' },
-  { header: 'Extra', accessor: 'extra' },
+  { header: t('ID'), accessor: 'id' },
+  { header: t('TemplateName'), accessor: 'templateName' },
+  { header: t('TemplateType'), accessor: 'templateType' },
+  { header: t('Language'), accessor: 'language' },
+  { header: t('SubType'), accessor: 'subType' },
+  { header: t('CreatedOn'), accessor: 'createdOn' },
+  { header: t('Lastupdatedon'), accessor: 'lastUpdatedOn' },
+  { header: t('Extra'), accessor: 'extra' },
 ];
 
 const initialData: TemplateRow[] = Array.from({ length: 100 }, (_, index) => ({
@@ -42,7 +49,6 @@ const initialData: TemplateRow[] = Array.from({ length: 100 }, (_, index) => ({
   extra: `Data ${index + 1}`,
 }));
 
-const ConsentManager = () => {
   const [selected, setSelected] = useState<string>('one');
   const [search, setSearch] = useState('');
   const [appliedSearch, setAppliedSearch] = useState('');
@@ -50,6 +56,9 @@ const ConsentManager = () => {
   const [perPage, setPerPage] = useState(10);
   const [tableData, setTableData] = useState<TemplateRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<TemplateRow[]>([]);
+
+
+
 
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
@@ -105,7 +114,7 @@ const ConsentManager = () => {
     <>
   
       <SelectHeader
-        title="Templates"
+        title={t("templates")}
         showRiskLevel={false}
         Selecttitle="Type:"
         options={options}
@@ -113,6 +122,9 @@ const ConsentManager = () => {
         setSelected={setSelected}
         
       />
+
+
+      
 
       <CommonToolbar
         searchText={search}
@@ -134,16 +146,17 @@ const ConsentManager = () => {
           data={paginatedData}
           pagination={false}
           onSelectionChange={setSelectedRows}
+             rowClickPath={(row) => `/consent-manager/template/${row.id}`} 
         />
       </div>
-      <div className='createicons'>
-
-
-
-      </div>
+     
 
       <div className="text-sm text-gray-600 mt-2 text-right bg">
+<<<<<<< HEAD
         Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} entries
+=======
+        {t("Showing")} {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} {t("entries")}
+>>>>>>> 2871f152bc4701447aba44cd99ac2829d7ca8c99
       </div>
     </>
   );

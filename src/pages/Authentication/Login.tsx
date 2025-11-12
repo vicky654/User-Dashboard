@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import showMessage from "../../CustomHooks/hooks/showMessage";
+import LoaderImg from "../../utils/Loader";
+ import axios from "axios";
 
 const LoginPage: React.FC = () => {
 
-useEffect(() => {
-  localStorage.clear(); // Clear localStorage on component mount for demo purposes
-  },[]);
-
+  useEffect(() => {
+    localStorage.clear(); // Clear localStorage on component mount for demo purposes
+  }, []);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_URL;
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -17,22 +21,121 @@ useEffect(() => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .email("Invalid email address")
+        // .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string().required("Password is required"),
     }),
-  onSubmit: (values) => {
-  // Simulate login logic
-  const dummyToken = "1234567890abcdef"; // replace with real token from API in real use
-  localStorage.setItem("token", dummyToken); // store token in localStorage
+ 
 
-  // Navigate to home
-  navigate("/");
-},
+// onSubmit: async (values) => {
+//     setLoading(true);
+
+//   try {
+//     const response = await axios.post(
+//       `${baseUrl}/login`,
+//       values,
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         withCredentials: true, // ✅ important for cookies/session
+//       }
+//     );
+
+//     const data = response.data;
+//     console.log("Login response data:", data);
+
+//     if (response.status === 200 && data) {
+//       localStorage.setItem("permissions", data?.permissions);
+//       localStorage.setItem("roles", data?.roles);
+//       localStorage.setItem("user", JSON.stringify(data?.user));
+
+//       if (data?.user) {
+//         showMessage("Login successful", "success");
+
+//         // ✅ Example dummy token
+//         const dummyToken = "1234567890abcdef";
+//         localStorage.setItem("token", dummyToken);
+
+//         // ✅ Navigate to dashboard or privacy governance
+//         navigate("/privacy-governance");
+//       } else if (data?.data?.is_verified === false) {
+//         navigate("/validateOtp");
+//       }
+//     } else {
+//       showMessage(data?.message || "Login failed", "error");
+//     }
+//   } catch (error) {
+//   setLoading(false);
+//         showMessage('An error occurred during login', 'error');
+
+//   } finally {
+//     setLoading(false);
+//   }
+
+
+
+//   }  });
+
+
+
+  onSubmit: async (values) => {
+      setLoading(true);
+          showMessage("Login successful", 'success');
+            const dummyToken = "1234567890abcdef"; 
+            localStorage.setItem("token", dummyToken); // store token in localStorage
+
+
+      // try {
+      //   const response = await fetch(`${baseUrl}/login`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(values), // Send request body as JSON
+      //   });
+
+      //   const data = await response.json();
+      //   console.log('Login response data:', data);
+        
+      //   if (response.ok && data) {
+      //     localStorage.setItem('permissions', data?.permissions);
+      //     localStorage.setItem('roles', data?.roles);
+      //     localStorage.setItem('user', data?.user);
+
+
+      //     if (data?.user) {
+      //       showMessage("Login successful", 'success');
+      //       const dummyToken = "1234567890abcdef"; 
+      //       localStorage.setItem("token", dummyToken); // store token in localStorage
+
+      //       // Navigate to home
+      //       navigate("/privacy-governance");
+      //       // navigate('/dashboard');
+      //     } else if (data?.data?.is_verified === false) {
+      //       navigate('/validateOtp');
+      //     }
+      //     setLoading(false);
+      //     // localStorage.setItem('justLoggedIn', true);
+      //   } else {
+      //     setLoading(false);
+      //     showMessage(data?.message, 'error');
+
+
+      //   }
+      // } catch (error) {
+      //   setLoading(false);
+      //   showMessage('An error occurred during login', 'error');
+
+      // }
+      setLoading(false);
+    },
 
   });
 
   return (
+            <>
+            {loading ? <LoaderImg /> : null}
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-white rounded-2xl shadow-md flex flex-col md:flex-row max-w-3xl w-full h-full p-12 gap-8 md:gap-12">
         {/* Logo Section */}
@@ -59,7 +162,7 @@ useEffect(() => {
               <input
                 id="username"
                 name="username"
-                type="email"
+                type="text"
                 className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-base"
                 placeholder=" Email address"
                 value={formik.values.username}
@@ -110,7 +213,7 @@ useEffect(() => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="btn btn-primary font-semibold transition-colors hover:bg-blue-800 mx-auto block mt-2"
+              className="btn bg-primary font-semibold transition-colors  mx-auto block mt-2"
             >
               Submit
             </button>
@@ -118,6 +221,7 @@ useEffect(() => {
         </div>
       </div>
     </div>
+         </>
   );
 };
 

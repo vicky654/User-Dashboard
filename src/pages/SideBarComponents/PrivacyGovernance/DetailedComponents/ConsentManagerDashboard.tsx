@@ -7,6 +7,12 @@ import { toast } from 'react-toastify';
 import CommonToolbar from '../../../Components/CommonToolbar';
 import CommonTabs from '../../../../CustomHooks/CommonTabPanel';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
+import { useTranslation } from 'react-i18next';
+import DonutChart from '../../../Charts/DonutChart';
+import { dummyBarData, dummyDonutData } from '../ConsentChartDummyData';
+import BarChart from '../../../Charts/BarChart';
+
+
 interface DepartmentRow {
   id: number;
   templateName: string;
@@ -18,16 +24,7 @@ interface DepartmentRow {
   extra: string;
 }
 
-const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Template Name', accessor: 'templateName' },
-  { header: 'Template Type', accessor: 'templateType' },
-  { header: 'Language', accessor: 'language' },
-  { header: 'Sub Type', accessor: 'subType' },
-  { header: 'Created On', accessor: 'createdOn' },
-  { header: 'Last updated on', accessor: 'lastUpdatedOn' },
-  { header: 'Extra', accessor: 'extra' },
-];
+
 
 const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
@@ -48,6 +45,20 @@ export default function ConsentManagerDashboard() {
   const [perPage, setPerPage] = useState(10);
   const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+
+  const { t } = useTranslation();
+
+  const columns = [
+  { header: t('ID'), accessor: 'id' },
+  { header: t('TemplateName'), accessor: 'templateName' },
+  { header: t('TemplateType'), accessor: 'templateType' },
+  { header: t('Language'), accessor: 'language' },
+  { header: t('SubType'), accessor: 'subType' },
+  { header: t('CreatedOn'), accessor: 'createdOn' },
+  { header: t('Lastupdatedon'), accessor: 'lastUpdatedOn' },
+  { header: t('Extra'), accessor: 'extra' },
+];
+  
 
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
@@ -118,7 +129,7 @@ export default function ConsentManagerDashboard() {
 
   const tabs = [
     {
-      title: 'Consented (10)',
+      title: t('consented'),
       content: <>
          <CommonDataTable<DepartmentRow>
                 columns={columns}
@@ -130,58 +141,58 @@ export default function ConsentManagerDashboard() {
       </>,
     },
     {
-      title: 'In-Progress (530)',
-    content: <>
-      <CommonDataTable<DepartmentRow>
-             columns={columns}
-             data={paginatedData}
-             pagination={false}
-             onSelectionChange={setSelectedRows}
-           />
-      </>,
-    },
-     {
-      title: 'Initiated (40)',
-    content: <>
-      <CommonDataTable<DepartmentRow>
-             columns={columns}
-             data={paginatedData}
-             pagination={false}
-             onSelectionChange={setSelectedRows}
-           />
+      title: t('in-Progress'),
+      content: <>
+        <CommonDataTable<DepartmentRow>
+          columns={columns}
+          data={paginatedData}
+          pagination={false}
+          onSelectionChange={setSelectedRows}
+        />
       </>,
     },
     {
-      title: 'Not Delivered (10)',
-       content: <>
-     <CommonDataTable<DepartmentRow>
-            columns={columns}
-            data={paginatedData}
-            pagination={false}
-            onSelectionChange={setSelectedRows}
-          />
+      title: t('initiated'),
+      content: <>
+        <CommonDataTable<DepartmentRow>
+          columns={columns}
+          data={paginatedData}
+          pagination={false}
+          onSelectionChange={setSelectedRows}
+        />
       </>,
     },
-     {
-      title: 'Withdrawn (30)',
-       content: <>
-     <CommonDataTable<DepartmentRow>
-            columns={columns}
-            data={paginatedData}
-            pagination={false}
-            onSelectionChange={setSelectedRows}
-          />
+    {
+      title: t('NotDelivered'),
+      content: <>
+        <CommonDataTable<DepartmentRow>
+          columns={columns}
+          data={paginatedData}
+          pagination={false}
+          onSelectionChange={setSelectedRows}
+        />
       </>,
     },
-     {
-      title: 'Rejected (2)',
-       content: <>
-     <CommonDataTable<DepartmentRow>
-            columns={columns}
-            data={paginatedData}
-            pagination={false}
-            onSelectionChange={setSelectedRows}
-          />
+    {
+      title: t('withdrawn'),
+      content: <>
+        <CommonDataTable<DepartmentRow>
+          columns={columns}
+          data={paginatedData}
+          pagination={false}
+          onSelectionChange={setSelectedRows}
+        />
+      </>,
+    },
+    {
+      title: t('rejected'),
+      content: <>
+        <CommonDataTable<DepartmentRow>
+          columns={columns}
+          data={paginatedData}
+          pagination={false}
+          onSelectionChange={setSelectedRows}
+        />
       </>,
     },
    
@@ -190,7 +201,7 @@ export default function ConsentManagerDashboard() {
     <>
     
         <SelectHeader
-                title="Consent Manager Dashboard"
+                title="Compliance Management Dashboard"
                 riskLevel="high"
                 showRiskLevel={true}
                     leftIcon={<ConsentIcon width={30} height={30} />}
@@ -201,7 +212,27 @@ export default function ConsentManagerDashboard() {
             />
 
 
-                <CommonToolbar
+     
+      <div className="w-full mb-4 ">
+  <div className="flex gap-2 min-w-max">
+    {/* Bar Chart */}
+    <div className="boxShadowcard flex-1 ">
+      <h4 className="text-base font-semibold mb-4 text-center">Overall Count</h4>
+      <div className="flex-1 h-full">
+        <BarChart data={dummyBarData} />
+      </div>
+    </div>
+
+    {/* Donut Chart */}
+    <div className="boxShadowcard flex-1 ">
+      <h4 className="text-base font-semibold mb-2 text-center">Percentage (%)</h4>
+      <div className="flex-1 h-full">
+        <DonutChart data={dummyDonutData} />
+      </div>
+    </div>
+  </div>
+</div>
+           <CommonToolbar
         searchText={search}
         setSearchText={setSearch}
         onSearch={handleSearch}

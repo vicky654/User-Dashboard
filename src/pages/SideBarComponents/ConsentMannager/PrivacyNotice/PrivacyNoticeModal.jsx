@@ -153,7 +153,7 @@ const PrivacyNoticeModal = ({ open, onClose, onSave }) => {
           <div className="flex justify-end gap-3 mt-6">
                <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 btn text-white rounded-lg hover:bg-blue-700"
             >
               Save
             </button>

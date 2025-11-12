@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useFormik } from 'formik';
 import SelectHeader from '../../pages/Components/SelectHeader';
 import ConsentIcon from '../DPDPIcons/ConsentIcon';
 import { Link } from 'react-router-dom';
 import PrimaryColorPicker from '../Layouts/PrimaryColorPicker';
 import ConfirmModal from './ConfirmModal';
+import { useTranslation } from 'react-i18next';
 
 const CreateManageProcessingActivity = () => {
+   const { t } = useTranslation();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [mode, setMode] = useState<"deactivate" | "delete">("deactivate");
 
@@ -59,7 +61,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
     return (
         <>
             <SelectHeader
-                title="Create new processing activity"
+                title={t("Createnewprocessingactivity")}
                 showRiskLevel={false}
 
                 leftIcon={<ConsentIcon width={30} height={30} />}
@@ -75,19 +77,19 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                 <div className="grid grid-cols-2 gap-6 mb-6">
                     <div className="space-y-4">
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Processing Activity Name :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ProcessingActivityName")} :</label>
                             <input
                                 type="text"
                                 name="activityName"
                                 onChange={formik.handleChange}
                                 value={formik.values.activityName}
                                 className="border px-3 py-2 rounded w-full"
-                                placeholder="Enter Text"
+                                placeholder={t("EnterText")}
                             />
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Parent Processing Activity :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ParentProcessingActivity")} :</label>
                             <select
                                 name="parentActivity"
                                 onChange={formik.handleChange}
@@ -100,19 +102,19 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Description :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("description")} :</label>
                             <input
                                 type="text"
                                 name="description"
                                 onChange={formik.handleChange}
                                 value={formik.values.description}
                                 className="border px-3 py-2 rounded w-full"
-                                placeholder="Enter Text"
+                                placeholder={t("EnterText")}
                             />
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Processing Activity Manager :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ProcessingActivityManager")} :</label>
                             <select
                                 name="manager"
                                 onChange={formik.handleChange}
@@ -124,7 +126,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Processing Activity Type :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ProcessingActivityType")} :</label>
                             <select
                                 name="type"
                                 onChange={formik.handleChange}
@@ -136,7 +138,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Validity of Consent (in Months) :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ValidityofConsent")} :</label>
                             <select
                                 name="validity"
                                 onChange={formik.handleChange}
@@ -150,7 +152,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
 
                     <div className="space-y-4">
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Active :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("Active")} :</label>
                             <select
                                 name="active"
                                 onChange={formik.handleChange}
@@ -163,7 +165,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Is OTP Mandatory? :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("IsOTPMandatory")} :</label>
                             <select
                                 name="otpMandatory"
                                 onChange={formik.handleChange}
@@ -176,7 +178,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Show on DPGR :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ShowonDPGR")} :</label>
                             <select
                                 name="showOnDPGR"
                                 onChange={formik.handleChange}
@@ -189,7 +191,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">Show on Privacy :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("ShowonPrivacy")} :</label>
                             <select
                                 name="showOnPrivacy"
                                 onChange={formik.handleChange}
@@ -202,7 +204,7 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
                         </div>
 
                         <div className="flex items-center">
-                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">OTP Validity for Consent REST API :</label>
+                            <label className="w-[440px] font-medium text-gray-700 flex justify-between pr-2">{t("OTPValidityforConsentRESTAPI")} :</label>
                             <select
                                 name="otpValidity"
                                 onChange={formik.handleChange}
@@ -217,14 +219,14 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
 
                 <div className="flex justify-center gap-4">
                     <button type="submit" className="btn btn-primary text-white px-6 py-2 rounded">
-                        Submit
+                        {t("Submit")}
                     </button>
                     <Link to="/processingActivity">
                         <button
                             type="button"
                             className="btn btn-secondary text-white px-6 py-2 rounded"
                         >
-                            Discard
+                            {t("Discard")}
                         </button>
                     </Link>
                 </div>
@@ -233,34 +235,34 @@ Please click on <b>YES</b> to confirm the action and <b>NO</b> to go back.`,
             </form>
             {/* <PrimaryColorPicker /> */}
             <div className="grid grid-cols-2 gap-4 mt-10">
-                {['Consent Email Template', 'Privacy Template', 'Consent SMS Template'].map((label, idx) => (
+                {[t('ConsentEmailTemplate'), t('PrivacyTemplate'), t('ConsentSMSTemplate')].map((label, idx) => (
                     <div
                         key={idx}
                         className="bg-white border rounded-lg shadow p-4 text-gray-700"
                     >
                         <div className="flex justify-between">
                             <span>{label} :</span>
-                            <span>NA</span>
+                            <span>{t("NA")}</span>
                         </div>
                         <div className="flex justify-between mt-2">
-                            <span>Effective From :</span>
-                            <span>NA</span>
+                            <span>{t("EffectiveFrom")} :</span>
+                            <span>{t("NA")}</span>
                         </div>
                     </div>
                 ))}
 
-                {['Consent Email Template', 'Privacy Template', 'Consent SMS Template'].map((label, idx) => (
+                {[t('ConsentEmailTemplate'), t('PrivacyTemplate'), t('ConsentSMSTemplate')].map((label, idx) => (
                     <div
                         key={idx + 3}
                         className="bg-white border rounded-lg shadow p-4 text-gray-700"
                     >
                         <div className="flex justify-between">
                             <span>{label} :</span>
-                            <span>NA</span>
+                            <span>{t("NA")}</span>
                         </div>
                         <div className="flex justify-between mt-2">
-                            <span>Effective From :</span>
-                            <span>NA</span>
+                            <span>{t("EffectiveFrom")} :</span>
+                            <span>{t("NA")}</span>
                         </div>
                     </div>
                 ))}

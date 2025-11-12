@@ -110,10 +110,10 @@ const PrivacyGovernance: React.FC<ManageUserProps> = ({ postData, getData, isLoa
         <>
       
             <SelectHeader
-                title="Privacy Governance"
+               title="privacyGovernance"
                 riskLevel="high"
                 showRiskLevel={true}
-                Selecttitle="Processing Activity"
+                Selecttitle="processingActivity"
                 options={options}
                 selected={selected}
                 setSelected={setSelected}
@@ -124,13 +124,13 @@ const PrivacyGovernance: React.FC<ManageUserProps> = ({ postData, getData, isLoa
 
             {/* <h3>{selected}</h3> */}
             <ConsentChart
-                title="Data Principal Consent Management"
+                title="dataPrincipalConsentManagement"
                 barData={dummyBarData}
                 donutData={dummyDonutData}
                 stats={dummyStats}
             />
             <ConsentChart
-                title="Data Principal Consent Management"
+                title="dataPrincipalConsentManagement"
                 barData={dummyBarData}
                 donutData={dummyDonutData}
                 stats={dummyStats}

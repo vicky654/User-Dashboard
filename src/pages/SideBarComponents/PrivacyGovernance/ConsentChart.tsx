@@ -9,6 +9,8 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { useTranslation } from 'react-i18next';
+
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -85,14 +87,14 @@ const ConsentChart: React.FC<ConsentChartProps> = ({
             },
         },
     };
-
+    const { t } = useTranslation();
     return (
         <div className="mt-6 flex flex-col md:flex-row gap-4">
             {/* Left Side Charts */}
-            <div className="w-full md:w-[70%] lg:w-[78%] h-auto p-8 rounded-[30px] shadow-[0px_4px_4px_rgba(0,0,0,0.3)] bg-white min-w-0">
+            <div className="w-full md:w-[70%] lg:w-[78%] h-auto p-8 rounded-[30px] border  bg-white min-w-0">
                 {title && (
                     <h2 className="text-lg font-semibold text-center mb-4">
-                        {title}
+                    {t(title)}
                     </h2>
                 )}
 
@@ -135,10 +137,10 @@ const ConsentChart: React.FC<ConsentChartProps> = ({
                 {stats?.map((item, index) => (
                     <div
                         key={index}
-                        className="flex-1 rounded-2xl px-4 py-3 bg-gray-200 border border-blue-400 shadow-md text-black text-center flex flex-col justify-between"
+                        className="flex-1 rounded-2xl px-4 py-3 bg-gray-200 border border-gray-300   text-black text-center flex flex-col justify-between"
                     >
                         <h3 className="text-sm font-semibold mb-1">
-                            {item.label}
+                            {t(item.label)}
                         </h3>
                         <div className="text-3xl font-black">
                             {item.value}
@@ -148,7 +150,7 @@ const ConsentChart: React.FC<ConsentChartProps> = ({
                                 ▲ {item.change}
                             </span>
                             <span className="font-medium">
-                                {item.count} this week
+                                {item.count} {t('thisWeek')}
                             </span>
                         </div>
                     </div>

@@ -3,6 +3,9 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import Tooltip from './Tooltip';
+import { useTranslation } from 'react-i18next';
+
+
 
 interface CommonToolbarProps {
   searchText: string;
@@ -71,7 +74,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
     // toast.success('Import button clicked');
     onImport?.();
   };
-
+  const { t } = useTranslation();
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisiblePages = 5;
@@ -104,7 +107,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
         <button
           key={i}
           onClick={() => onPageChange(i)}
-          className={`px-2 py-1 rounded text-sm ${currentPage === i ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'
+          className={`px-2 py-1 rounded text-sm ${currentPage === i ? 'btn text-white' : 'text-gray-700 hover:bg-gray-200'
             }`}
         >
           {i}
@@ -139,13 +142,13 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
         {/* Search and reset */}
         <div className="flex items-center gap-1">
           <div className="relative">
-            <input type="text" placeholder="Enter Text" className="pl-9 pr-3 py-2 border border-gray-300 rounded shadow-sm w-[250px]" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+            <input type="text" placeholder={t("EnterText")} className="pl-9 pr-3 py-2 border border-gray-300 rounded  w-[250px]" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
             <span className="absolute left-3 top-2.5 text-gray-400">
-              <i className="fa fa-search" /> </span> </div> <Tooltip text="Search">
-            <button onClick={handleSearch} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow" > <i className="fa fa-search" /> </button>
+              <i className="fa fa-search" /> </span> </div> <Tooltip text={t("Search")}>
+            <button onClick={handleSearch} className="btn hover:bg-blue-700 text-white px-4 py-[10px] rounded shadow" > <i className="fa fa-search" /> </button>
           </Tooltip>
           {onReset && (
-            <Tooltip text="Reset">
+            <Tooltip text={t("Reset")}>
               <button
                 onClick={onReset}
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow"
@@ -157,11 +160,13 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
 
         {/* Action buttons */}
         <div className="flex items-center gap-1">
+
+
           {onCreate && (
-            <Tooltip text="Create">
+            <Tooltip text={t('create')}>
               <button
                 onClick={handleCreate}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
+                className="btn hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
               >
                 <i className="fa fa-plus" />
               </button>
@@ -169,10 +174,10 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
           )}
 
           {onDuplicate && (
-            <Tooltip text="Duplicate">
+            <Tooltip text={t('duplicate')}>
               <button
                 onClick={handleDuplicate}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
+                className="btn hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
               >
                 <i className="fa fa-copy" />
               </button>
@@ -180,7 +185,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
           )}
 
           {onDelete && (
-            <Tooltip text="Delete">
+            <Tooltip text={t('delete')}>
               <button
                 onClick={handleDelete}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
@@ -191,7 +196,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
           )}
 
           {onImport && (
-            <Tooltip text="Import">
+            <Tooltip text={t('import')}>
               <button
                 onClick={handleImport}
                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow flex items-center gap-1"
@@ -202,7 +207,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
           )}
 
           {onExport && (
-            <Tooltip text="Export">
+            <Tooltip text={t('export')}>
               <button
                 onClick={handleExport}
                 className="bg-primary text-white px-4 py-2 rounded shadow flex items-center gap-1"
@@ -213,7 +218,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
           )}
 
           {onFilter && (
-            <Tooltip text="Filter">
+            <Tooltip text={t('filter')}>
               <button
                 onClick={handleFilter}
                 className="bg-primary text-white px-4 py-2 rounded shadow flex items-center gap-1"
@@ -222,6 +227,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
               </button>
             </Tooltip>
           )}
+
         </div>
 
         <div className="flex items-center gap-2 text-sm text-gray-700">
@@ -234,7 +240,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
                 setPerPage(Number(e.target.value));
                 onPageChange(1); // Reset to first page
               }}
-              className="border border-gray-300 rounded px-2 py-1 shadow-sm"
+              className="border border-gray-300 rounded px-2 py-1 "
             >
               {[10, 25, 50, 100].map((num) => (
                 <option key={num} value={num}>
@@ -251,7 +257,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
               disabled={currentPage === 1}
               className="text-gray-500 hover:underline disabled:opacity-50"
             >
-              &lt; Previous
+              &lt; {t('Previous')}
             </button>
 
             {renderPageNumbers?.()}
@@ -261,7 +267,7 @@ const CommonToolbar: React.FC<CommonToolbarProps> = ({
               disabled={currentPage === totalPages}
               className="text-gray-500 hover:underline disabled:opacity-50"
             >
-              Next &gt;
+              {t('Next')} &gt;
             </button>
 
 

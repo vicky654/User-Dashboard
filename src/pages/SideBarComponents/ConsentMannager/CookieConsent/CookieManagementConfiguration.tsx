@@ -105,7 +105,7 @@ gtag('config', 'AW-16540124026');
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-800">Configuration Setting</h2>
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+          className="px-6 py-2 btn text-white rounded-lg shadow hover:bg-blue-700"
           onClick={() => setIsEditable((prev) => !prev)}
         >
           {isEditable ? 'Cancel' : 'Edit'}

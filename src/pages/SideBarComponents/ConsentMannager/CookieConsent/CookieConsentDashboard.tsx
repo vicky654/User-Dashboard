@@ -10,6 +10,8 @@ import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
 import BarChart from '../../../Charts/BarChart';
 import { dummyBarData, dummyDonutData } from '../../PrivacyGovernance/ConsentChartDummyData';
 import DonutChart from '../../../Charts/DonutChart';
+// import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 
 // Original DepartmentRow type
@@ -71,17 +73,7 @@ const tableData = [
     functonal: "No"
   }
 ];
-const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Name", accessor: "name" },
-  { header: "Client", accessor: "client" },
-  { header: "Consent Time", accessor: "consenttime" },
-  { header: "Device Type", accessor: "devicetype" },
-  { header: "IP Address", accessor: "ipaddress" },
-  { header: "Analytics", accessor: "analytics" },
-  { header: "Targeting", accessor: "targating" },
-  { header: "Functional", accessor: "functonal" },
-];
+
 
 // Convert DepartmentRow → Common Table Format
 const initialData = tableData.map((item, index) => ({
@@ -108,6 +100,19 @@ export default function CookieConsentDashboard() {
   const [perPage, setPerPage] = useState(10);
   const [tableData, setTableData] = useState<DepartmentRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+
+  const { t } = useTranslation();
+const columns = [
+  { header: t("ID"), accessor: "id" },
+  { header: t("Name"), accessor: "name" },
+  { header: t("Client"), accessor: "client" },
+  { header: t("ConsentTime"), accessor: "consenttime" },
+  { header: t("DeviceType"), accessor: "devicetype" },
+  { header: t("IPAddress"), accessor: "ipaddress" },
+  { header: t("Analytics"), accessor: "analytics" },
+  { header: t("Targeting"), accessor: "targating" },
+  { header: t("Functional"), accessor: "functonal" },
+];
 
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
@@ -171,12 +176,9 @@ export default function CookieConsentDashboard() {
         <SelectHeader
                 title="Cookie Consent Dashboard"
                 riskLevel="high"
-                showRiskLevel={true}
+                showRiskLevel={false}
                     leftIcon={<ConsentIcon width={30} height={30} />}
-                Selecttitle="Processing Activity"
-                options={options}
-                selected={selected}
-                setSelected={setSelected}
+             
             />
 
 <div className="w-full ">

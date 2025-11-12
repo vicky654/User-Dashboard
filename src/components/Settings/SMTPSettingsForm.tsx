@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 const SMTPSettingsForm = () => {
   const [isEditable, setIsEditable] = useState(false);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +29,7 @@ const SMTPSettingsForm = () => {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-800">SMTP Settings</h2>
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+          className="px-6 py-2 btn text-white rounded-lg shadow hover:bg-blue-700"
           onClick={() => setIsEditable((prev) => !prev)}
         >
           {isEditable ? 'Cancel' : 'Edit'}
@@ -38,7 +40,7 @@ const SMTPSettingsForm = () => {
         {fields.map((key) => (
           <div key={key} className="flex items-center ">
              <label className="w-[240px] font-medium text-gray-700 flex justify-between pr-2">
-              {key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase())} <span className="text-gray-500">:</span>
+              {t(key).replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase())} <span className="text-gray-500">:</span>
             </label>
             <div className="flex-1">
               {isEditable ? (

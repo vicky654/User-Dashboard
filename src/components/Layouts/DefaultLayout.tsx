@@ -10,6 +10,7 @@ import Sidebar from './Sidebar';
 import Portals from '../../components/Portals';
 import CommonHeader from './CommonHeader';
 import Dsidebar from './Dsidebar';
+import UserHeader from './UserHeader';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
@@ -82,12 +83,12 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
 
                 <div className={`${themeConfig.navbar} main-container text-black dark:text-white-dark min-h-screen`}>
                     {/* BEGIN SIDEBAR */}
-                    <Dsidebar />
+                    {/* <Dsidebar /> */}
                     {/* END SIDEBAR */}
-  <CommonHeader />
+                    <UserHeader />
                     <div className="main-content flex flex-col min-h-screen">
                         {/* BEGIN TOP NAVBAR */}
-                      
+
                         {/* END TOP NAVBAR */}
 
                         {/* BEGIN CONTENT AREA */}

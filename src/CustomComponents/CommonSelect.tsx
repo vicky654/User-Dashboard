@@ -36,7 +36,7 @@ const CommonSelect: React.FC<CommonSelectProps> = ({
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm text-black focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${className}`}
+        className={`w-full px-4 py-2 border border-gray-300 rounded-md  bg-white text-sm text-black focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${className}`}
       >
         {options?.map((opt) => (
           <option key={opt?.value} value={opt?.value}>

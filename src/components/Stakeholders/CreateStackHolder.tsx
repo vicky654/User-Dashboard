@@ -5,6 +5,8 @@ import UserCreate from "../DPDPIcons/UserCreate";
 import { CommonDataTable } from "../../CustomHooks/CustomDataTable";
 import StackCreate from "./StackCreate";
 import { MultiSelect } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { t } from 'i18next';
 
 interface ToggleSwitchProps {
   checked: boolean;
@@ -36,14 +38,37 @@ interface DepartmentRow {
 }
 
 const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Roles", accessor: "roles" },
-  { header: "Created On", accessor: "createdon" },
-  { header: "Last Updated On", accessor: "lastupdatedon" },
-  { header: "Last Updated By", accessor: "lastupdatedby" },
-  { header: "Email", accessor: "email" },
-  { header: "Phone", accessor: "phone" },
+  { header: t("ID"), accessor: "id" },
+  { header: t("Roles"), accessor: "roles" },
+  { header: t("Created On"), accessor: "createdon" },
+  { header: t("Last Updated On"), accessor: "lastupdatedon" },
+  { header: t("Last Updated By"), accessor: "lastupdatedby" },
+  { header: t("Email"), accessor: "email" },
+  { header: t("Phone"), accessor: "phone" },
 ];
+
+//
+// const column = [
+//   { header: t('id'), accessor: 'id' },
+//   { header: t('deptName'), accessor: 'deptName' },
+//   { header: t('active'), accessor: 'active' },
+//   { header: t('description'), accessor: 'description' },
+//   { header: t('paManager'), accessor: 'paManager' },
+//   { header: t('paType'), accessor: 'paType' },
+//   { header: t('email'), accessor: 'email' },
+//   { header: t('phone'), accessor: 'phone' },
+// ];
+
+
+
+const CreateStackHolder = () => {
+  const [editMode, setEditMode] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage] = useState(10);
+
+  const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
+  const [appliedSearch, setAppliedSearch] = useState("");
+  const { t } = useTranslation();
 
 const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
@@ -54,14 +79,7 @@ const initialData: DepartmentRow[] = Array.from({ length: 100 }, (_, index) => (
   email: 'Satyam.sinha@yopmail.com',
   phone: '9876543210',
 }));
-
-const CreateStackHolder = () => {
-  const [editMode, setEditMode] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [perPage] = useState(10);
   const [tableData] = useState<DepartmentRow[]>(initialData);
-  const [selectedRows, setSelectedRows] = useState<DepartmentRow[]>([]);
-  const [appliedSearch, setAppliedSearch] = useState("");
 const roleOptions = [
   "User Roles",
   "Audit Log",
@@ -182,7 +200,7 @@ const roleOptions = [
               <div className="flex gap-3 col-span-2 mt-4 justify-center">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:btn"
                 >
                   Submit
                 </button>
@@ -220,7 +238,7 @@ const roleOptions = [
         {!editMode && (
           <button
             onClick={() => setEditMode(true)}
-            className="absolute top-4 right-4 px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center gap-2"
+            className="absolute top-4 right-4 px-4 py-1 bg-blue-500 text-white rounded-md hover:btn flex items-center gap-2"
           >
             <i className="fa fa-edit"></i> Edit
           </button>

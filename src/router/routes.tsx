@@ -1,4 +1,22 @@
 import { lazy } from 'react';
+import ToolsAutomation from '../components/Tools&Automation/ToolsAutomation';
+import Dashboard from '../components/UserDashboardComponents/Dashboard';
+import ConsentHistory from '../components/UserDashboardComponents/ConsentHistory';
+import ConsentDetails from '../components/UserDashboardComponents/ConsentDetails';
+import RevokeConsent from '../components/UserDashboardComponents/RevokeConsent';
+import ConsentNotice from '../components/UserDashboardComponents/ConsentNotice';
+import DataProtectionRights from '../components/UserDashboardComponents/DataProtectionRights';
+import RequestsFormGrievanceRedressalOptions from '../components/UserDashboardComponents/RequestsFormGrievanceRedressalOptions';
+import ComplaintSubmitted from '../components/UserDashboardComponents/ComplaintSubmitted';
+import RightsGrievanceHistory from '../components/UserDashboardComponents/RightsGrievanceHistory';
+import ComplaintDetails from '../components/UserDashboardComponents/ComplaintDetails';
+import NotificationsPage from '../components/UserDashboardComponents/NotificationsPage';
+import NomineeForm from '../components/UserDashboardComponents/NomineeForm';
+import NominationSummary from '../components/UserDashboardComponents/NominationSummary';
+import NomineeRequestStatus from '../components/UserDashboardComponents/NomineeRequestStatus';
+import LanguageSelection from '../components/UserDashboardComponents/LanguageSelection';
+import LoginWithOtp from '../components/UserDashboardComponents/LoginWithOtp';
+import VerifyOtp from '../components/UserDashboardComponents/VerifyOtp';
 
 
 const Index = lazy(() => import('../pages/Index'));
@@ -117,6 +135,7 @@ const ThirdPartyAssessment = lazy(() => import('../pages/SideBarComponents/Priva
 const ConsentTemplateEditor = lazy(() => import('../pages/SideBarComponents/PrivacyGovernance/DetailedComponents/ConsentTemplateEditor'));
 const Login = lazy(() => import('../pages/Authentication/Login'));
 const SettingsPage = lazy(() => import('../components/Settings/SettingsPage'));
+const Allsettings = lazy(() => import('../components/Settings/Allsettings'));
 const CreateManageProcessingActivity = lazy(() => import('../components/ProcessingActivity/CreateManageProcessingActivity'));
 const ManageInternalStakeholders = lazy(() => import('../components/Stakeholders/ManageInternalStakeholders'));
 const CreateStackHolder = lazy(() => import('../components/Stakeholders/CreateStackHolder'));
@@ -141,6 +160,7 @@ const CookieManagement = lazy(() => import('../../src/pages/SideBarComponents/Co
 const CookieManagementItemDetails = lazy(() => import('../../src/pages/SideBarComponents/ConsentMannager/CookieConsent/CookieManagementItemDetails'));
 
 const DataPrincipalActivity = lazy(() => import('../../src/pages/SideBarComponents/ConsentMannager/Reporting -DataPrincipalActivity/DataPrincipalActivity'));
+const Tenants = lazy(() => import('../../src/pages/SideBarComponents/Tenants/Tenants'));
 
 
 const routes = [        
@@ -151,12 +171,88 @@ const routes = [
     // }, 
     {
         path: '/',
-        element: <PrivacyGoverNance />,
+        element: <Dashboard />,
     },
      {
         path: '/processingActivity',
         element: <ManageProcessingActivity />,
     },
+      {
+        path: '/manage-consents',
+        element: <ConsentHistory />,
+    },
+        {
+        path: '/consent-details/:id',
+        element: <ConsentDetails />,
+        
+    },
+        {
+        path: '/login-otp',
+        element: <LoginWithOtp  />,
+    },
+    {
+        path: '/verify-otp',
+        element: <VerifyOtp  />,
+    },
+      {
+        path: '/language-selection',
+        element: <LanguageSelection />,
+    },
+        {
+        path: '/revoke-consent/:id',
+        element: <RevokeConsent />,
+        
+    },
+    {
+         path:"/consent-notice/:id",
+         element:<ConsentNotice />
+    },
+{
+
+    path: "/data-protection-rights",
+    element: <DataProtectionRights />
+},
+{
+
+    path: "/nominee/summary",
+    element: <NominationSummary />
+},
+{
+    path: "/nominee/status",
+    element: <NomineeRequestStatus />
+},
+{
+
+    path: "/NomineeForm",
+    element: <NomineeForm />
+},
+{
+
+    path: "/notifications",
+    element: <NotificationsPage  />
+},
+{
+    path: "/complaint-details/:id",
+    element:<ComplaintDetails />
+},
+ {
+    path: "/requests-form-grievance-redressal-options",
+    element: <RequestsFormGrievanceRedressalOptions />
+},
+{path:"/rights-grievance-history",
+     element:<RightsGrievanceHistory />},
+{path:"/complaint-submitted",
+     element:<ComplaintSubmitted />},
+
+       {
+        path: '/tenants',
+        element: <Tenants />,
+    },
+      {
+        path: '/ToolsAutomation',
+        element: <ToolsAutomation />,
+    },
+    
    {
         path: '/create-ManageProcessingActivity',
         element: <CreateManageProcessingActivity />,
@@ -254,6 +350,10 @@ const routes = [
     },  {
         path: '/roles-listing',
         element: <RolesListing />,
+    },
+      {
+        path: '/all-Settings',
+        element: <Allsettings />,
     },
     {
         path: '/Settings',

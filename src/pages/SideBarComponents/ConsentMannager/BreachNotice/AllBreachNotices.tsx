@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import CommonToolbar from '../../../Components/CommonToolbar';
 import CommonTabs from '../../../../CustomHooks/CommonTabPanel';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
+import { useTranslation } from 'react-i18next';
 type DepartmentRow = {
   id: number;
   processingActivity: string;
@@ -16,17 +17,20 @@ type DepartmentRow = {
   notDelivered: number;
 };
 
+export default function AllBreachNotices() {
+const { t } = useTranslation();
+
 const columns = [
-  { header: "ID", accessor: "id" },
-  { header: "Processing Activity", accessor: "processingActivity" },
-  { header: "Total Data Principals", accessor: "total" },
-  { header: "Delivered", accessor: "delivered" },
-  { header: "Initiated", accessor: "initiated" },
-  { header: "Not Delivered", accessor: "notDelivered" },
+  { header: t('id'), accessor: 'id' },
+  { header: t('processingActivity'), accessor: 'processingActivity' },
+  { header: t('total'), accessor: 'total' },
+  { header: t('delivered'), accessor: 'delivered' },
+  { header: t('initiated'), accessor: 'initiated' },
+  { header: t('notDelivered'), accessor: 'notDelivered' },
 ];
 
 
-const tableData = [
+const DynamicTableData = [
   { processingActivity: "Accounts", total: 93, delivered: 93, initiated: 0, notDelivered: 0 },
   { processingActivity: "Admin", total: 0, delivered: 0, initiated: 0, notDelivered: 0 },
   { processingActivity: "Buyer-Onboarding", total: 15, delivered: 15, initiated: 0, notDelivered: 0 },
@@ -42,7 +46,7 @@ const tableData = [
 ];
 
 
-const initialData: DepartmentRow[] = tableData.map((item, index) => ({
+const initialData: DepartmentRow[] = DynamicTableData.map((item, index) => ({
   id: index + 1,
   processingActivity: item.processingActivity,
 
@@ -52,7 +56,9 @@ const initialData: DepartmentRow[] = tableData.map((item, index) => ({
   total: item.total,
 }));
 
-export default function AllBreachNotices() {
+
+
+
   const [selected, setSelected] = useState<string>('one');
   const [search, setSearch] = useState('');
   const [appliedSearch, setAppliedSearch] = useState('');
@@ -117,7 +123,7 @@ export default function AllBreachNotices() {
     <>
     
         <SelectHeader
-                title="All Privacy Notices"
+                title={t("allPrivacyNotice")}
                 riskLevel="high"
                 showRiskLevel={false}
                 leftIcon={<ConsentIcon width={30} height={30} />}

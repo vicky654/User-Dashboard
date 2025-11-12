@@ -6,6 +6,7 @@ import SelectHeader from '../../../Components/SelectHeader';
 import CommonToolbar from '../../../Components/CommonToolbar';
 import { CommonDataTable } from '../../../../CustomHooks/CustomDataTable';
 import Noticetoseekconsent from './Noticetoseekconsent';
+import { useTranslation } from 'react-i18next';
 
 
 interface TemplateRow {
@@ -18,17 +19,6 @@ interface TemplateRow {
   lastUpdatedOn: string;
   extra: string;
 }
-
-const columns = [
-  { header: 'ID', accessor: 'id' },
-  { header: 'Template Name', accessor: 'templateName' },
-  { header: 'Template Type', accessor: 'templateType' },
-  { header: 'Language', accessor: 'language' },
-  { header: 'Sub Type', accessor: 'subType' },
-  { header: 'Created On', accessor: 'createdOn' },
-  { header: 'Last updated on', accessor: 'lastUpdatedOn' },
-  { header: 'Extra', accessor: 'extra' },
-];
 
 const initialData: TemplateRow[] = Array.from({ length: 100 }, (_, index) => ({
   id: index + 1,
@@ -49,6 +39,19 @@ const AllConsentRequest = () => {
   const [perPage, setPerPage] = useState(10);
   const [tableData, setTableData] = useState<TemplateRow[]>(initialData);
   const [selectedRows, setSelectedRows] = useState<TemplateRow[]>([]);
+
+  const { t } = useTranslation();
+const columns = [
+  { header: t('ID'), accessor: 'id' },
+  { header: t('TemplateName'), accessor: 'templateName' },
+  { header: t('TemplateType'), accessor: 'templateType' },
+  { header: t('Language'), accessor: 'language' },
+  { header: t('SubType'), accessor: 'subType' },
+  { header: t('CreatedOn'), accessor: 'createdOn' },
+  { header: t('Lastupdatedon'), accessor: 'lastUpdatedOn' },
+  { header: t('Extra'), accessor: 'extra' },
+];
+
 
   const { data: optionsData } = useGetApiCall({
     url: '/processing_activities',
@@ -102,7 +105,7 @@ const handleImport = () => {
     <>
   
       <SelectHeader
-        title="All Consent Request"
+        title={t("allConsentRequests")}
         showRiskLevel={false}
         Selecttitle="Type:"
         options={options}
@@ -141,7 +144,7 @@ const handleImport = () => {
       </div>
 
       <div className="text-sm text-gray-600 mt-2 text-right bg">
-        Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} entries
+        {t("Showing")} {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} {t("entries")}
       </div>
       <Noticetoseekconsent
   isOpen={open}
