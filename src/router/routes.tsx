@@ -244,133 +244,133 @@ const routes = [
 {path:"/complaint-submitted",
      element:<ComplaintSubmitted />},
 
-       {
-        path: '/tenants',
-        element: <Tenants />,
-    },
-      {
-        path: '/ToolsAutomation',
-        element: <ToolsAutomation />,
-    },
+//        {
+//         path: '/tenants',
+//         element: <Tenants />,
+//     },
+//       {
+//         path: '/ToolsAutomation',
+//         element: <ToolsAutomation />,
+//     },
     
-   {
-        path: '/create-ManageProcessingActivity',
-        element: <CreateManageProcessingActivity />,
-    },
-   {
-        path: '/internal-stakeholders',
-        element: <ManageInternalStakeholders />,
-    },
-     {
-        path: '/create-stakeholders',
-        element: <CreateStackHolder />,
-    },
-  {
-        path: '/manage-languages',
-        element: <ManageLanguages />,
-    },
+//    {
+//         path: '/create-ManageProcessingActivity',
+//         element: <CreateManageProcessingActivity />,
+//     },
+//    {
+//         path: '/internal-stakeholders',
+//         element: <ManageInternalStakeholders />,
+//     },
+//      {
+//         path: '/create-stakeholders',
+//         element: <CreateStackHolder />,
+//     },
+//   {
+//         path: '/manage-languages',
+//         element: <ManageLanguages />,
+//     },
 
-    {
-        path: '/privacy-governance',
-        element: <PrivacyGoverNance />,
-    },
-    {
-        path: '/consent-manager-template',
-        element: <ConsentManager />,
-    },
-       {
-        path: '/consent-manager-dashboard',
-        element: <ConsentManagerDashboard />,
-    },
-         {
-        path: '/all-consent-requests',
-        element: <AllConsentRequest />,
-    },
-   {
-        path: '/cookie-consent-view/:id',
-        element: <CookieConsentView />,
-    },
+//     {
+//         path: '/privacy-governance',
+//         element: <PrivacyGoverNance />,
+//     },
+//     {
+//         path: '/consent-manager-template',
+//         element: <ConsentManager />,
+//     },
+//        {
+//         path: '/consent-manager-dashboard',
+//         element: <ConsentManagerDashboard />,
+//     },
+//          {
+//         path: '/all-consent-requests',
+//         element: <AllConsentRequest />,
+//     },
+//    {
+//         path: '/cookie-consent-view/:id',
+//         element: <CookieConsentView />,
+//     },
 
 
-      {
-        path: '/cookie-consent-dashboard',
-        element: <CookieConsentDashboard />,
-    },
-      {
-        path: '/cookie-consent-dashboard',
-        element: <CookieConsentDashboard />,
-    },
-    {
-        path: '/cookie-management',
-        element: <CookieManagement />,
-    },
-     {
-        path: '/cookie-management-item-details/:id',
-        element: <CookieManagementItemDetails />,
-    },
-     {
-        path: '/privacy-notice',
-        element: <PrivacyNoticeDashboard />,
-    },
-        {
-        path: '/privacy-notice-table',
-        element: <PrivacyNoticeTableDash />,
-    },
-      {
-        path: '/breach-notice',
-        element: <BreachNoticeDashboard />,
-    },
-      {
-        path: '/breach-notice-list',
-        element: <AllBreachNotices />,
-    },
-       {
-        path: '/privacy-notice-list',
-        element: <AllPrivacyNotices />,
-    },
-        {
-        path: '/breach-notice-table',
-        element: <BreachNoticeTableDash />,
-    },
-    {
-        path: '/consent-manager/template/:id',
-        element: <ConsentTemplateEditor />,
-    },
-    {
-        path: '/privacy-governance/consent',
-        element: <ConsentManager />,
-    },
-    {
-        path: '/privacy-governance/awareness',
-        element: <AwarenessManagement />,
-    },
-    {
-        path: '/roles-and-permissions',
-        element: <RightsManagement />,
-    },  {
-        path: '/roles-listing',
-        element: <RolesListing />,
-    },
-      {
-        path: '/all-Settings',
-        element: <Allsettings />,
-    },
-    {
-        path: '/Settings',
-        element: <SettingsPage />,
-    },
-    {
-        path: '/privacy-governance/impact',
-        element: <ImpactAssessment />,
-    },
-    {
-        path: '/privacy-governance/third-party',
-        element: <ThirdPartyAssessment />,
-    },
-       {
-        path: '/data-principal-activity',
-        element: <DataPrincipalActivity />,
-    },
+//       {
+//         path: '/cookie-consent-dashboard',
+//         element: <CookieConsentDashboard />,
+//     },
+//       {
+//         path: '/cookie-consent-dashboard',
+//         element: <CookieConsentDashboard />,
+//     },
+//     {
+//         path: '/cookie-management',
+//         element: <CookieManagement />,
+//     },
+//      {
+//         path: '/cookie-management-item-details/:id',
+//         element: <CookieManagementItemDetails />,
+//     },
+//      {
+//         path: '/privacy-notice',
+//         element: <PrivacyNoticeDashboard />,
+//     },
+//         {
+//         path: '/privacy-notice-table',
+//         element: <PrivacyNoticeTableDash />,
+//     },
+//       {
+//         path: '/breach-notice',
+//         element: <BreachNoticeDashboard />,
+//     },
+//       {
+//         path: '/breach-notice-list',
+//         element: <AllBreachNotices />,
+//     },
+//        {
+//         path: '/privacy-notice-list',
+//         element: <AllPrivacyNotices />,
+//     },
+//         {
+//         path: '/breach-notice-table',
+//         element: <BreachNoticeTableDash />,
+//     },
+//     {
+//         path: '/consent-manager/template/:id',
+//         element: <ConsentTemplateEditor />,
+//     },
+//     {
+//         path: '/privacy-governance/consent',
+//         element: <ConsentManager />,
+//     },
+//     {
+//         path: '/privacy-governance/awareness',
+//         element: <AwarenessManagement />,
+//     },
+//     {
+//         path: '/roles-and-permissions',
+//         element: <RightsManagement />,
+//     },  {
+//         path: '/roles-listing',
+//         element: <RolesListing />,
+//     },
+//       {
+//         path: '/all-Settings',
+//         element: <Allsettings />,
+//     },
+//     {
+//         path: '/Settings',
+//         element: <SettingsPage />,
+//     },
+//     {
+//         path: '/privacy-governance/impact',
+//         element: <ImpactAssessment />,
+//     },
+//     {
+//         path: '/privacy-governance/third-party',
+//         element: <ThirdPartyAssessment />,
+//     },
+//        {
+//         path: '/data-principal-activity',
+//         element: <DataPrincipalActivity />,
+//     },
 
 
     // {

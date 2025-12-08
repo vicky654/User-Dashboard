@@ -63,7 +63,7 @@ const Dashboard: React.FC = () => {
   return (
     <main className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-4">
-        Hello, Osama  <span className="animate-wave">👋</span>
+        Hello, SanDeep  <span className="animate-wave">👋</span>
       </h2>
 
       {/* Stats Section */}
