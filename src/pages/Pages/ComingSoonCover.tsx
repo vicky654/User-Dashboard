@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { setPageTitle } from '../../store/themeConfigSlice';
+import { setPageTitle } from '../../store/store/themeConfigSlice';
 import { useDispatch } from 'react-redux';
 
 const ComingSoonCover = () => {

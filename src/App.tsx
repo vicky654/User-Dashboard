@@ -1,7 +1,7 @@
 // src/App.tsx
 import { PropsWithChildren, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import store, { IRootState } from './store'; // ✅ default + named import
+import store, { IRootState } from './store';
 import {
   toggleRTL,
   toggleTheme,
@@ -13,10 +13,17 @@ import {
   toggleSemidark,
 } from './store/themeConfigSlice';
 import { PageTitleProvider } from './context/PageTitleContext';
+import { ThemeProvider } from '../src/components/ThemeProvider';   // ✅ ADD THIS
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { fetchAdminData } from '../src/api/domains/admin.api';
+import withApiHandler from '../src/api/withApiHandler';
 
-function App({ children }: PropsWithChildren) {
+import { setAuthMetaData, updateBreach_templates, updatePermissions, updateProcessingActivities, updateTemplates } from '../src/store/authSlice';
+
+
+function App({ children, execute }: PropsWithChildren & any) {
+
   const themeConfig = useSelector((state: IRootState) => state.themeConfig);
   const dispatch = useDispatch();
 
@@ -41,18 +48,48 @@ function App({ children }: PropsWithChildren) {
     themeConfig.semidark,
   ]);
 
+  const loadAdminData = async () => {
+    try {
+      const response = await execute(() => fetchAdminData());
+      console.log(response?.data?.data?.Breach_templates,"response?.data?.data?.Breach_templates");
+      
+      dispatch(setAuthMetaData(response.data.data));
+      dispatch(updateTemplates(response?.data?.data?.templates));
+      dispatch(updatePermissions(response?.data?.data?.Default_permissions));
+      dispatch(updateProcessingActivities(response?.data?.data?.processing_activities));
+      dispatch(updateBreach_templates(response?.data?.data?.Breach_templates));
+    } catch (error) {
+      console.error("Admin API Failed:", error);
+    }
+  };
+
+  useEffect(() => {
+
+
+
+
+    loadAdminData();
+
+  }, []);
+
+
+
+
   return (
-    <PageTitleProvider>
-      <div
-        className={`${
-          store.getState().themeConfig.sidebar ? 'toggle-sidebar' : ''
-        } ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass} main-section antialiased relative font-nunito text-sm font-normal`}
-      >
-        {children}
-      </div>
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
-    </PageTitleProvider>
+    <ThemeProvider>   {/* ✅ WRAP EVERYTHING */}
+      <PageTitleProvider>
+        <div
+          className={`${store.getState().themeConfig.sidebar ? 'toggle-sidebar' : ''
+            } ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass} main-section antialiased relative font-nunito text-sm font-normal`}
+        >
+          {children}
+        </div>
+
+        <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
+      </PageTitleProvider>
+    </ThemeProvider>
   );
 }
+export default withApiHandler(App);
 
-export default App;
+

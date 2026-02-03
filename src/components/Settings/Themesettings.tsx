@@ -5,7 +5,7 @@ import ThemeColorPicker from "../Layouts/PrimaryColorPicker";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../store";
-import { toggleSemidark } from "../../store/themeConfigSlice";
+import { toggleSemidark } from "../../store/store/themeConfigSlice";
 import { useTranslation } from "react-i18next";
 
 export default function ThemeSettings() {

@@ -98,7 +98,7 @@ interface ConsentTableProps {
 const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, onRowClick }) => {
   return (
     <div className="bg-white border rounded-2xl shadow-sm mt-4">
-      <Table striped highlightOnHover>
+      <Table striped highlightOnHover >
         <thead>
           <tr>
             <th>Purpose</th>

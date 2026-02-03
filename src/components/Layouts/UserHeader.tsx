@@ -15,7 +15,7 @@ const UserHeader: React.FC = () => {
 
       <nav className="flex items-center space-x-6">
         <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={()=>navigate("/")}>Dashboard</a>
-        <a href="#" className="text-sm text-gray-700 hover:text-red-500">My Consents</a>
+        <a  className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/manage-consents")}>My Consents</a>
         <a href="#" className="text-sm text-gray-700 hover:text-red-500">My Requests</a>
           <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/language-selection")}>Language</a>
          <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/login-otp")}>Login</a>

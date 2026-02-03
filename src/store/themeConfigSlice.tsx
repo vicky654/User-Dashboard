@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import i18next from 'i18next';
-import themeConfig from '../theme.config';
+import themeConfig from '../../src/theme.config';
 
 const defaultState = {
     isDarkMode: false,
