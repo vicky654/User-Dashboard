@@ -122,8 +122,8 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
                     c.status === "Active"
                       ? "green"
                       : c.status === "Expired"
-                      ? "yellow"
-                      : "red"
+                        ? "yellow"
+                        : "red"
                   }
                   variant="light"
                 >
