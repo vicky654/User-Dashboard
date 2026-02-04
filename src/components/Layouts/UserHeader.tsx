@@ -1,32 +1,63 @@
-import React from "react";
-import { Bell, User } from "lucide-react";
+import React, { useState } from "react";
+import { Bell, User, LogOut } from "lucide-react";
 import UserHeaderLogo from "../Icon/UserHeaderLogo";
 import { useNavigate } from "react-router-dom";
-// import { Button } from "@/components/ui/button";
 
 const UserHeader: React.FC = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white border-b">
-      <div className="flex items-center space-x-3" style={{ cursor: "pointer" }}  onClick={() => navigate("/")} >
-       <UserHeaderLogo />
-    
+      {/* Logo */}
+      <div
+        className="flex items-center cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        <UserHeaderLogo />
       </div>
 
-      <nav className="flex items-center space-x-6">
-        <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={()=>navigate("/")}>Dashboard</a>
-        <a  className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/manage-consents")}>My Consents</a>
-        <a href="#" className="text-sm text-gray-700 hover:text-red-500">My Requests</a>
-          <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/language-selection")}>Language</a>
-         <a href="#" className="text-sm text-gray-700 hover:text-red-500" onClick={() => navigate("/login-otp")}>Login</a>
-       
-        <a href="#" className="text-sm text-gray-700 hover:text-red-500">Settings</a>
+      {/* Right Nav */}
+      <nav className="flex items-center gap-6">
+        <span className="nav-link cursor-pointer" onClick={() => navigate("/")}>Dashboard</span>
+        <span className="nav-link cursor-pointer" onClick={() => navigate("/manage-consents")}>My Consents</span>
+        <span className="nav-link cursor-pointer" onClick={() => navigate("/rights-grievance-history")}>My Requests</span>
+        <span className="nav-link cursor-pointer">Settings</span>
 
-        <div className="rounded-full bg-gray-200 p-1" onClick={() => navigate("/notifications")} style={{ cursor: "pointer" }}>
+        <div
+          className="rounded-full bg-gray-200 p-1 cursor-pointer"
+          onClick={() => navigate("/notifications")}
+        >
           <Bell className="h-5 w-5 text-gray-700" />
         </div>
-        <div className="rounded-full bg-gray-200 p-1">
-          <User className="h-5 w-5 text-gray-700" />
+
+        {/* User */}
+        <div className="relative">
+          <div
+            className="rounded-full bg-gray-200 p-1 cursor-pointer"
+            onClick={() => setOpen(!open)}
+          >
+            <User className="h-5 w-5 text-gray-700" />
+          </div>
+
+          {open && (
+            <div className="absolute right-0 mt-3 w-56 bg-white border rounded-lg shadow-md">
+              <div className="px-4 py-3 border-b font-medium">
+                Parmjeet Singh
+              </div>
+
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/login");
+                }}
+                className="w-full flex items-center gap-2 px-4 py-3 text-red-500 hover:bg-gray-50"
+              >
+                <LogOut size={16} />
+                Sign Out
+              </button>
+            </div>
+          )}
         </div>
       </nav>
     </header>

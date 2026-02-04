@@ -58,6 +58,7 @@ const RequestsFormGrievanceRedressalOptions: React.FC = () => {
   const handleSubmit = () => {
 
          navigate("/complaint-submitted");
+          // navigate("/complaint-submitted");
     // if (!details.trim()) {
     //   alert("Please provide a detailed description of your complaint.");
     //   return;

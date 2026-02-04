@@ -81,12 +81,12 @@ const Dashboard: React.FC = () => {
         <Button variant="outline" onClick={() => navigate("/data-protection-rights")}>
           <ClipboardList className="mr-2 h-4 w-4" /> Manage Rights
         </Button>
-        <Button variant="outline" onClick={() => navigate("/requests-form-grievance-redressal-options")}>
+        {/* <Button variant="outline" onClick={() => navigate("/requests-form-grievance-redressal-options")}>
           <AlertCircle className="mr-2 h-4 w-4" /> Raise Grievance
-        </Button>
-          <Button variant="outline" onClick={() => navigate("/requests-form-grievance-redressal-options")}>
+        </Button> */}
+          {/* <Button variant="outline" onClick={() => navigate("/requests-form-grievance-redressal-options")}>
           <AlertCircle className="mr-2 h-4 w-4" /> rights-grievance-history
-        </Button>
+        </Button> */}
             <Button variant="outline" onClick={() => navigate("/NomineeForm")}>
           <FileText className="mr-2 h-4 w-4" /> Nominee Form
         </Button>

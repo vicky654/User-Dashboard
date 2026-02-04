@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, Table, TextInput, Badge, TabsValue } from "@mantine/core";
 import { Download, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import withApiHandler from "../../api/withApiHandler";
+import { requestAPI } from '../../api/request';
 
 interface Consent {
   id: number;
@@ -10,10 +12,40 @@ interface Consent {
   status: "Active" | "Expired" | "Withdrawn";
 }
 
-const ConsentHistory: React.FC = () => {
+interface ApiProps {
+  execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
+  isLoading?: boolean;
+}
+
+
+
+function ConsentHistory({ execute, isLoading }: ApiProps)  {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabsValue>("active");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const navigate = useNavigate();
+
+  const [user, setUserData] = useState<any>(null);
+
+
+  const fetchUserData = async () => {
+    
+       const res = await execute(() =>
+      requestAPI.requestType()
+    );
+
+    setUserData(res.data.data.records);
+
+    console.log(res);
+
+    
+  };
+
+  useEffect(()=>{
+
+    fetchUserData();
+
+  },[])
+  
 
   const consents: Record<string, Consent[]> = {
     active: [
@@ -89,13 +121,16 @@ const ConsentHistory: React.FC = () => {
   );
 };
 
+
+
 interface ConsentTableProps {
   data: Consent[];
   showRevoke?: boolean;
   onRowClick: (path: string) => void;
+  onRevoke?: () => void;
 }
 
-const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, onRowClick }) => {
+const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, onRowClick, }) => {
   return (
     <div className="bg-white border rounded-2xl shadow-sm mt-4">
       <Table striped highlightOnHover >
@@ -134,9 +169,12 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
                 {showRevoke ? (
                   <button
                     className="text-red-500 hover:underline font-medium"
+                    
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent navigation
-                      alert(`Revoking consent for ${c.purpose}`);
+                      e.stopPropagation(); 
+                      onRowClick("/revoke-consent/1")
+
+                      // alert(`Revoking consent for ${c.purpose}`);
                     }}
                   >
                     Revoke
@@ -153,4 +191,4 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
   );
 };
 
-export default ConsentHistory;
+export default withApiHandler(ConsentHistory);

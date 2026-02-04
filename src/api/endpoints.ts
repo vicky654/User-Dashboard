@@ -30,6 +30,16 @@ export const ENDPOINTS = {
     activitylogs:"/activity/logs"
   },
 
+  request:{
+    base: "/request/",
+    create: "/request-types/create",
+    requesttype:"request-types/",
+    detail: "/request/details",
+    details: (id: number | string) => `/request/${id}`,
+    export: "/request/export",
+    import: "/request/import",
+  },
+
   // =========================
   // CONSENT
   // =========================

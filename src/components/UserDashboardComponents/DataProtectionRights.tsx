@@ -13,10 +13,17 @@ const DataProtectionRights: React.FC = () => {
     const [category, setCategory] = useState<string>("Right to correction");
     const [details, setDetails] = useState("");
     const [file, setFile] = useState<File | null>(null);
+
+    console.log("category", category);
     const navigate = useNavigate();
     const handleSubmit = () => {
 
-             navigate("/complaint-submitted");
+        if (category === "Right to nominate") {
+            navigate("/NomineeForm");
+            return;
+        }
+
+        navigate("/complaint-submitted");
         // if (!details.trim()) {
 
         //     navigate("/complaint-submitted");
@@ -69,19 +76,22 @@ const DataProtectionRights: React.FC = () => {
                             selected={category}
                             onSelect={setCategory}
                         />
-                        <RadioCard
-                            label="Right to nominate"
+                        <RadioCard label="Right to nominate"
                             value="Right to nominate"
                             selected={category}
-                            onSelect={setCategory}
-                        />
+                             onSelect={setCategory} />
+
                         <RadioCard
                             label="Right to grievance redressal"
                             value="Right to grievance redressal"
                             selected={category}
-                            onSelect={setCategory}
+                            onSelect={(value) => {
+                                setCategory(value);
+                                navigate("/requests-form-grievance-redressal-options");
+                            }}
                         />
                     </div>
+
                 </div>
 
                 {/* Complaint Details */}
@@ -158,8 +168,8 @@ const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, onSelect 
         <div
             onClick={() => onSelect(value)}
             className={`border rounded-lg w-full px-4 py-3 flex items-center cursor-pointer transition-all duration-150 ${isActive
-                    ? "border-red-500 bg-red-50 shadow-sm"
-                    : "border-gray-300 hover:border-gray-400"
+                ? "border-red-500 bg-red-50 shadow-sm"
+                : "border-gray-300 hover:border-gray-400"
                 }`}
         >
             <input

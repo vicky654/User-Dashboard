@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { IRootState } from '../../store';
-import { toggleRTL } from '../../store/store/themeConfigSlice';
+import { toggleRTL } from '../../store/themeConfigSlice';
 import { useTranslation } from 'react-i18next';
 import Dropdown from '../Dropdown';
 import IconLogout from '../Icon/IconLogout';
@@ -10,7 +10,7 @@ import { usePageTitle } from '../../context/PageTitleContext';
 import { setSelectedOption } from '../../store/headerSlice';
 import i18next from 'i18next';
 import IconCaretsDown from '../Icon/IconCaretsDown';
-import { toggleSemidark } from "../../store/store/themeConfigSlice";
+import { toggleSemidark } from "../../store/themeConfigSlice";
 
 const CommonHeader = () => {
   const { pageTitle } = usePageTitle();

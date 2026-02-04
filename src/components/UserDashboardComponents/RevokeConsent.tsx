@@ -12,12 +12,13 @@ const RevokeConsent: React.FC = () => {
 
   const handleRevoke = () => {
     if (!confirmed) {
-      navigate(`/consent-notice/${id}`);
+      // navigate("./complaint-submitted");
       alert("Please confirm you understand the consequences before proceeding.");
       return;
     }
-    alert(`Consent ${id} revoked successfully.`);
-    navigate("/consent-history");
+       navigate("/complaint-submitted");
+    // alert(`Consent ${id} revoked successfully.`);
+    // navigate("/consent-history");
   };
 
   return (

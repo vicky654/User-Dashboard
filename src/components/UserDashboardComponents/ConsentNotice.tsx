@@ -14,7 +14,7 @@ const ConsentNotice: React.FC = () => {
       return;
     }
     alert(`Consent ${id} granted successfully.`);
-    navigate("/consent-history");
+    navigate("/");
   };
 
   return (

@@ -42,7 +42,7 @@ const VerifyOtp: React.FC = () => {
     }
 
     console.log("OTP verified:", enteredOtp);
-    navigate("/dashboard"); // ✅ redirect after success
+    navigate("/"); // ✅ redirect after success
   };
 
   const handleResend = () => {
