@@ -1,7 +1,7 @@
 import { NavLink, useLocation, matchPath } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleSidebar } from '../../store/store/themeConfigSlice';
+import { toggleSidebar } from '../../store/themeConfigSlice';
 import { IRootState } from '../../store';
 import { useEffect, useState, useRef } from 'react';
 import { useSidebarItems } from './sidebarItems';

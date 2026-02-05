@@ -152,11 +152,7 @@ const initialData: TemplateRow[] = Array.from({ length: 100 }, (_, index) => ({
      
 
       <div className="text-sm text-gray-600 mt-2 text-right bg">
-<<<<<<< HEAD
-        Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} entries
-=======
         {t("Showing")} {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filteredData.length)} of {filteredData.length} {t("entries")}
->>>>>>> 2871f152bc4701447aba44cd99ac2829d7ca8c99
       </div>
     </>
   );

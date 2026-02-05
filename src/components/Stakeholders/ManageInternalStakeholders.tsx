@@ -11,12 +11,13 @@ import { useTranslation } from "react-i18next";
 interface StakeholderRow {
   id: number;
   name: string;
-  active: boolean;
+  active: any;
   email: string;
   phone: string;
   roles: string;
   latestAuth: string;
   extras: string;
+  
 }
 
 export default function ManageInternalStakeholders() {
@@ -186,6 +187,7 @@ export default function ManageInternalStakeholders() {
         <CommonDataTable
           columns={columns}
           data={formattedData}
+
           pagination={false}
           onSelectionChange={setSelectedRows}
         />

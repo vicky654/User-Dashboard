@@ -4,7 +4,7 @@ import sortBy from 'lodash/sortBy';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../store';
 import Dropdown from '../../components/Dropdown';
-import { setPageTitle } from '../../store/store/themeConfigSlice';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import IconBell from '../../components/Icon/IconBell';
 import IconCaretDown from '../../components/Icon/IconCaretDown';
 

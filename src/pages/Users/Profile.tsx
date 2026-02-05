@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../store';
 import Dropdown from '../../components/Dropdown';
-import { setPageTitle } from '../../store/store/themeConfigSlice';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import { useEffect } from 'react';
 import IconPencilPaper from '../../components/Icon/IconPencilPaper';
 import IconCoffee from '../../components/Icon/IconCoffee';

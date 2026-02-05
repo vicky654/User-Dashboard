@@ -21,6 +21,7 @@ const initialState: AuthState = {
   templates: [],
   Breach_templates:[],
   isAuthenticated: false,
+  Privacy_templates: {},
 };
 
 const authSlice = createSlice({

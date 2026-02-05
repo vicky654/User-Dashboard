@@ -30,7 +30,7 @@ const CommonDataTable = <T extends object>({ columns, data }: CommonDataTablePro
               <tr key={rowIndex} className="border-b hover:bg-gray-50">
                 {columns.map((col, colIndex) => (
                   <td key={colIndex} className="px-4 py-2">
-                    {row[col.accessor]}
+                    {String(row[col.accessor])}
                   </td>
                 ))}
               </tr>

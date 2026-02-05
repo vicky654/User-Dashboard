@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
           const dummyToken = "1234567890abcdef";
           localStorage.setItem("token", dummyToken);
 
-          navigate("/privacy-governance");
+          navigate("/");
 
         } else {
           showMessage(data?.message || "Login failed", "error");
