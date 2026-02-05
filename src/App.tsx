@@ -20,6 +20,8 @@ import { fetchAdminData } from '../src/api/domains/admin.api';
 import withApiHandler from '../src/api/withApiHandler';
 
 import { setAuthMetaData, updateBreach_templates, updatePermissions, updateProcessingActivities, updateTemplates } from '../src/store/authSlice';
+import { h } from '@fullcalendar/core/preact';
+import useErrorHandler from './CustomHooks/useErrorHandler';
 
 
 function App({ children, execute }: PropsWithChildren & any) {
@@ -47,6 +49,7 @@ function App({ children, execute }: PropsWithChildren & any) {
     themeConfig.locale,
     themeConfig.semidark,
   ]);
+   const handleApiError = useErrorHandler();
 
   const loadAdminData = async () => {
     try {
@@ -59,6 +62,8 @@ function App({ children, execute }: PropsWithChildren & any) {
       dispatch(updateProcessingActivities(response?.data?.data?.processing_activities));
       dispatch(updateBreach_templates(response?.data?.data?.Breach_templates));
     } catch (error) {
+       
+      handleApiError(error);
       console.error("Admin API Failed:", error);
     }
   };

@@ -26,10 +26,12 @@ const useErrorHandler = () => {
      */
     const handleApiError = useCallback((error: any) => {
         if (error.response && error.response.data) {
-            const { status_code, message, data } = error.response.data;
-            if (status_code == 401) {
+            const { status_code, message, code } = error.response.data;
+            if (status_code == 401 || code == 401) {
+                console.error("Unauthorized access - Invalid token");
                 navigate('/login');
                 showMessage('Invalid access token', 'error');
+
                 localStorage.clear();
             } else if (status_code == 403) {
                 navigate('/errorpage403');
