@@ -68,14 +68,10 @@ function App({ children, execute }: PropsWithChildren & any) {
     }
   };
 
-
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) loadAdminData();
   }, []);
-
-
-
 
 
   return (
