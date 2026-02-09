@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0', // 👈 makes it accessible on LAN
-    port: 3000       // 👈 fixed port
+    port: 3001       // 👈 fixed port
   },
   resolve: {
     alias: {
