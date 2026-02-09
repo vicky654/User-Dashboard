@@ -283,3 +283,10 @@ tr{
     background-color: #f03e3e;
     background-image: none;
 }
+.mantine-1xyd53g thead tr th, .mantine-1xyd53g tfoot tr th, .mantine-1xyd53g tbody tr th {
+    text-align: left;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 7px 10px;
+    color: #fff;
+}

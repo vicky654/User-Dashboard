@@ -16,7 +16,7 @@ export const ENDPOINTS = {
     resetPassword: "/auth/reset/password",
     changePassword: "/auth/change/password",
   },
-    settings: {
+  settings: {
     theme: "/settings/theme",
     company: "/settings/company",
     smtp: "/settings/smtp_outgoing",
@@ -27,13 +27,13 @@ export const ENDPOINTS = {
     License: "/license/",
     apisettings: "/settings/api_settings",
     integrationSettings: "/settings/Integration_Settings",
-    activitylogs:"/activity/logs"
+    activitylogs: "/activity/logs"
   },
 
-  request:{
+  request: {
     base: "/request/",
     create: "/request-types/create",
-    requesttype:"request-types/",
+    requesttype: "request-types/",
     detail: "/request/details",
     details: (id: number | string) => `/request/${id}`,
     export: "/request/export",
@@ -49,7 +49,18 @@ export const ENDPOINTS = {
     detail: (id: number | string) => `/consent/${id}`,
     export: "/consent/export",
     import: "/consent/import",
-      sample: (consentType: string) => `/consent/import/sample?consent_type=${consentType}`,
+    sample: (consentType: string) => `/consent/import/sample?consent_type=${consentType}`,
+
+    // User Dasdboard API for Consent Management
+    user: {
+      list: "/consent/portal-user-consents",
+      revoke: "/request/create",
+      consentdetail: (id: number | string) => `/consent/${id}`,
+
+    },
+
+
+
   },
 
   // =========================
@@ -65,40 +76,40 @@ export const ENDPOINTS = {
   },
 
 
-   // =========================
+  // =========================
   // BREACH
   // =========================
   breach: {
-    base: "/breach",                        
-    detail: "/breach/details",        
-    templates: "/breach/templates",         
-    details: (id: number | string) => `/breach/dashboard?processing_activity_id=${id}`, 
+    base: "/breach",
+    detail: "/breach/details",
+    templates: "/breach/templates",
+    details: (id: number | string) => `/breach/dashboard?processing_activity_id=${id}`,
 
-    import: "/breach/import",               
+    import: "/breach/import",
     export: "/breach/export",
     // For Breach Activity Wise Export.
     // breach/details/export?processing_activity_id=22
 
-breachactivityexport: (id: number | string) =>
-  `breach/details/export?processing_activity_id=${id}`,
+    breachactivityexport: (id: number | string) =>
+      `breach/details/export?processing_activity_id=${id}`,
 
-    bexport: "/breach/notices/export",               
-    sample: "/breach/sample", 
-    notice: "/breach/notices",             
+    bexport: "/breach/notices/export",
+    sample: "/breach/sample",
+    notice: "/breach/notices",
   },
 
 
   privacy: {
-    base: "/privacy",                        
-    detail: "/privacy/dashboard",        
-    templates: "/privacy/templates",         
-    details: (id: number | string) => `/privacy/dashboard?processing_activity_id=${id}`, 
+    base: "/privacy",
+    detail: "/privacy/dashboard",
+    templates: "/privacy/templates",
+    details: (id: number | string) => `/privacy/dashboard?processing_activity_id=${id}`,
 
-    import: "/privacy/import",               
+    import: "/privacy/import",
     export: "/privacy/export",
-    bexport: "/privacy/notices/export",               
-    sample: "/privacy/sample", 
-    notice: "/privacy/notices",             
+    bexport: "/privacy/notices/export",
+    sample: "/privacy/sample",
+    notice: "/privacy/notices",
   },
 
   // =========================
@@ -114,12 +125,12 @@ breachactivityexport: (id: number | string) =>
   // =========================
   // SMTP
   // =========================
-smtp: {
+  smtp: {
     base: "/smtp/",
     create: "/smtp/create",
     // detail: (id: number | string) => `/smtp/details?tenant_id=${id}`,
     detail: "/smtp/details",
-   
+
   },
 
   // =========================

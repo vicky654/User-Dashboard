@@ -1,26 +1,11 @@
-import { Link } from "react-router-dom";
 import { useGetApiCall } from "../../../CustomHooks/useGetApiCall";
-import CommonSelect from "../../../CustomComponents/CommonSelect";
 import ConsentChart from './ConsentChart'
 import { useEffect, useState } from "react";
-import {
-    AwarenessChart,
-
-    ConsentPie,
-    EmployeeAwarenessPie,
-    ImpactAssessmentChart,
-    ImpactAssessmentPie,
-    PrivacyGovData,
-    RightsChart,
-    RightsPie,
-    ThirdPartyChart,
-    ThirdPartyPie,
-} from "../../../chartData";
 import SelectHeader from "./../../../pages/Components/SelectHeader";
 import withApiHandler from "../../../api/withApiHandler";
 import useErrorHandler from "../../../CustomHooks/useErrorHandler";
 import { dummyBarData, dummyDonutData, dummyStats } from "./ConsentChartDummyData";
-import CommonHeader from "../../../components/Layouts/CommonHeader";
+
 import { usePageTitle } from "../../../context/PageTitleContext";
 
 

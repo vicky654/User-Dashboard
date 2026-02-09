@@ -8,7 +8,7 @@ import Header from './Header';
 import Setting from './Setting';
 import Sidebar from './Sidebar';
 import Portals from '../../components/Portals';
-import CommonHeader from './CommonHeader';
+
 import Dsidebar from './Dsidebar';
 import UserHeader from './UserHeader';
 

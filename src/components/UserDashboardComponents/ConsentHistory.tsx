@@ -4,12 +4,15 @@ import { Download, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import withApiHandler from "../../api/withApiHandler";
 import { requestAPI } from '../../api/request';
+import { ConsentAPI } from "../../api/domains/consent.api";
+import { formatDate, formatDateTime } from "../../utils/HelperFunctions";
 
 interface Consent {
   id: number;
   purpose: string;
   dateGranted: string;
-  status: "Active" | "Expired" | "Withdrawn";
+   validTill: string;
+  status: "Deemed Consent" | "Expired" | "Withdrawn";
 }
 
 interface ApiProps {
@@ -19,26 +22,40 @@ interface ApiProps {
 
 
 
-function ConsentHistory({ execute, isLoading }: ApiProps)  {
+const ConsentHistory = ({ execute, isLoading }: ApiProps) =>  {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabsValue>("active");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const [user, setUserData] = useState<any>(null);
+  const [consents, setConsents] = useState<Record<string, Consent[]>>({
+  active: [],
+  expired: [],
+  withdrawn: [],
+});
 
 
-  const fetchUserData = async () => {
-    
-       const res = await execute(() =>
-      requestAPI.requestType()
-    );
+const fetchUserData = async () => {
+  const res = await execute(() => ConsentAPI.userList());
 
-    setUserData(res.data.data.records);
+  const api = res.data.data;
 
-    console.log(res);
+  const mapData = (arr: any[], status: "Active" | "Expired" | "Withdrawn") =>
+    arr.map((item) => ({
+      id: item.id,
+      purpose: item.processing_activity,
+      dateGranted: item.date_granted,
+      validTill: item.valid_till,
+      status:item.status,
+    }));
 
-    
-  };
+  setConsents({
+    active: mapData(api.active.data, "Active"),
+    expired: mapData(api.expired.data, "Expired"),
+    withdrawn: mapData(api.withdrawn.data, "Withdrawn"),
+  });
+};
+
 
   useEffect(()=>{
 
@@ -47,22 +64,7 @@ function ConsentHistory({ execute, isLoading }: ApiProps)  {
   },[])
   
 
-  const consents: Record<string, Consent[]> = {
-    active: [
-      { id: 1, purpose: "Marketing Emails", dateGranted: "2023-01-15", status: "Active" },
-      { id: 2, purpose: "Product Updates", dateGranted: "2023-02-20", status: "Active" },
-      { id: 3, purpose: "Customer Surveys", dateGranted: "2023-03-10", status: "Active" },
-      { id: 4, purpose: "Personalized Ads", dateGranted: "2023-04-05", status: "Active" },
-      { id: 5, purpose: "Loyalty Program", dateGranted: "2023-05-12", status: "Active" },
-    ],
-    expired: [
-      { id: 6, purpose: "Promotional Offers", dateGranted: "2022-09-10", status: "Expired" },
-      { id: 7, purpose: "User Feedback", dateGranted: "2022-10-22", status: "Expired" },
-    ],
-    withdrawn: [
-      { id: 8, purpose: "Analytics Data", dateGranted: "2023-01-01", status: "Withdrawn" },
-    ],
-  };
+
 
   const currentTab = (activeTab ?? "active") as string;
 
@@ -70,6 +72,10 @@ function ConsentHistory({ execute, isLoading }: ApiProps)  {
     c.purpose.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+
+  console.log(consents,"consents");
+  
   return (
     <main className="p-8 bg-gray-50 min-h-screen">
       {/* Header */}
@@ -136,8 +142,9 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
       <Table striped highlightOnHover >
         <thead>
           <tr>
-            <th>Purpose</th>
+            <th>Processing Activity</th>
             <th>Date Granted</th>
+            <th>Valid Till</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -150,16 +157,21 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
               onClick={() => onRowClick(`/consent-details/${c.id}`)}
             >
               <td>{c.purpose}</td>
-              <td>{c.dateGranted}</td>
+           <td>{formatDateTime(c.dateGranted)}</td>
+             <td>{formatDateTime(c.validTill)}</td>
+            
               <td>
                 <Badge
                   color={
-                    c.status === "Active"
+                    c.status === "Deemed Consent"
                       ? "green"
                       : c.status === "Expired"
-                        ? "yellow"
-                        : "red"
+                      ? "orange"
+                      : c.status === "Withdrawn"
+                      ? "red"
+                      : "gray"
                   }
+                 
                   variant="light"
                 >
                   {c.status}
@@ -172,7 +184,7 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
                     
                     onClick={(e) => {
                       e.stopPropagation(); 
-                      onRowClick("/revoke-consent/1")
+                      onRowClick("/revoke-consent/" + c.id);
 
                       // alert(`Revoking consent for ${c.purpose}`);
                     }}

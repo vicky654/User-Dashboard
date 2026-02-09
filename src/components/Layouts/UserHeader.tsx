@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { Bell, User, LogOut } from "lucide-react";
 import UserHeaderLogo from "../Icon/UserHeaderLogo";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../store";
 
 const UserHeader: React.FC = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+         const UserDetails = useSelector(
+         (state: IRootState) => state.auth.user ?? null
+       );
+
+       console.log("UserDetails in UserHeader:", UserDetails);
 
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white border-b">
@@ -43,7 +50,7 @@ const UserHeader: React.FC = () => {
           {open && (
             <div className="absolute right-0 mt-3 w-56 bg-white border rounded-lg shadow-md">
               <div className="px-4 py-3 border-b font-medium">
-                Parmjeet Singh
+              {UserDetails ? UserDetails?.name : 'Guest'}
               </div>
 
               <button

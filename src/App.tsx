@@ -54,8 +54,7 @@ function App({ children, execute }: PropsWithChildren & any) {
   const loadAdminData = async () => {
     try {
       const response = await execute(() => fetchAdminData());
-      console.log(response?.data?.data?.Breach_templates,"response?.data?.data?.Breach_templates");
-      
+    
       dispatch(setAuthMetaData(response.data.data));
       dispatch(updateTemplates(response?.data?.data?.templates));
       dispatch(updatePermissions(response?.data?.data?.Default_permissions));

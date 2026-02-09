@@ -3,6 +3,8 @@ import { Shield, ClipboardList, AlertCircle, FileText, Info, XCircle, CheckCircl
 import { Button } from "@mantine/core";
 import ConsentHistory from "./ConsentHistory";
 import { useNavigate } from "react-router-dom";
+import { IRootState } from "../../store";
+import { useSelector } from "react-redux";
 
 interface StatCardProps {
   title: string;
@@ -59,11 +61,13 @@ const Dashboard: React.FC = () => {
     }
   };
    const navigate = useNavigate();
-
+      const UserDetails = useSelector(
+         (state: IRootState) => state.auth.user ?? null
+       );
   return (
     <main className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-4">
-        Hello, SanDeep  <span className="animate-wave">👋</span>
+        Hello,  {UserDetails ? UserDetails?.name : 'Guest'}  <span className="animate-wave">👋</span>
       </h2>
 
       {/* Stats Section */}
