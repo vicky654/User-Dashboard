@@ -8,8 +8,15 @@ import {
 } from "@mantine/core";
 import { UploadCloud } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import withApiHandler from "../../api/withApiHandler";
 
-const DataProtectionRights: React.FC = () => {
+
+interface ApiProps {
+  execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
+  isLoading?: boolean;
+}
+
+const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
     const [category, setCategory] = useState<string>("Right to correction");
     const [details, setDetails] = useState("");
     const [file, setFile] = useState<File | null>(null);
@@ -190,4 +197,4 @@ const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, onSelect 
     );
 };
 
-export default DataProtectionRights;
+export default withApiHandler(DataProtectionRights);

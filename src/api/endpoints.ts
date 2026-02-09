@@ -56,6 +56,7 @@ export const ENDPOINTS = {
       list: "/consent/portal-user-consents",
       revoke: "/request/create",
       consentdetail: (id: number | string) => `/consent/${id}`,
+      managerights: "/request-types/",
 
     },
 
