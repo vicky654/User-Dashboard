@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Card,
     Textarea,
@@ -9,20 +9,53 @@ import {
 import { UploadCloud } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import withApiHandler from "../../api/withApiHandler";
+import { ConsentAPI } from "../../api/domains/consent.api";
+import LoaderImg from "../../utils/Loader";
+
+
+
+interface userManageData {
+    name: string;
+    email: string;
+    phone: string;
+}
 
 
 interface ApiProps {
-  execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
-  isLoading?: boolean;
+    execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
+    isLoading?: boolean;
 }
 
 const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
-    const [category, setCategory] = useState<string>("Right to correction");
+    const [category, setCategory] = useState<string>("");
     const [details, setDetails] = useState("");
     const [file, setFile] = useState<File | null>(null);
+    const [userData, setUserData] = useState<userManageData[]>([]);
+
+    const [complaintCategory, setComplaintCategory] = useState<string>("");
+
 
     console.log("category", category);
     const navigate = useNavigate();
+
+
+
+
+    const manageUserData = async () => {
+        const res = await execute(() => ConsentAPI.managerights());
+
+        const api = res.data.data;
+        setUserData(res.data.data.records);
+        console.log("user data", api.records);
+
+    };
+
+
+    useEffect(() => {
+        manageUserData();
+
+       
+    }, []);
     const handleSubmit = () => {
 
         if (category === "Right to nominate") {
@@ -44,9 +77,13 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
         setDetails("");
         setFile(null);
         setCategory("Right to correction");
-    };
 
+    };
+    console.log("category", category, complaintCategory);
     return (
+        <>
+         {isLoading ? <LoaderImg /> : null}
+     
         <main className="bg-gray-50 flex flex-col items-center justify-start py-10 min-h-screen">
             {/* Header */}
             <div className="text-center mb-8">
@@ -71,33 +108,83 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
 
                     {/* ✅ FIXED GRID LAYOUT */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                         {userData?.map((item) => (
                         <RadioCard
-                            label="Right to correction"
-                            value="Right to correction"
+                            label={item.name}
+                            value={item.name}
+                            name="rights"
                             selected={category}
                             onSelect={setCategory}
                         />
-                        <RadioCard
+
+                        ))}
+                        {/* <RadioCard
                             label="Right to erasure"
                             value="Right to erasure"
+                              name="rights"
                             selected={category}
                             onSelect={setCategory}
                         />
                         <RadioCard label="Right to nominate"
                             value="Right to nominate"
+                              name="rights"
                             selected={category}
-                             onSelect={setCategory} />
+                            onSelect={setCategory} />
+
 
                         <RadioCard
                             label="Right to grievance redressal"
                             value="Right to grievance redressal"
                             selected={category}
-                            onSelect={(value) => {
-                                setCategory(value);
-                                navigate("/requests-form-grievance-redressal-options");
-                            }}
-                        />
+                              name="rights"
+                            onSelect={setCategory} /> */}
                     </div>
+
+
+
+                    {/* 🔽 Show ONLY when Right to grievance redressal is selected */}
+                    {category === "Right to grievance redressal" && (
+                       <section className="mb-6">
+                            <Text fw={600} mb={4}>
+                                Complaint Category
+                            </Text>
+                            <Text size="sm" c="dimmed" mb={10}>
+                                Select the category that best describes your complaint.
+                            </Text>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <RadioCard
+                                    label="Data Breach"
+                                    value="Data Breach"
+                                      name="complaintCategory"
+                                    selected={complaintCategory}
+                                    onSelect={setComplaintCategory}
+                                />
+                                <RadioCard
+                                    label="Consent Violation"
+                                    value="Consent Violation"
+                                      name="complaintCategory"
+                                    selected={complaintCategory}
+                                    onSelect={setComplaintCategory}
+                                />
+                                <RadioCard
+                                    label="Processing Errors"
+                                    value="Processing Errors"
+                                      name="complaintCategory"
+                                    selected={complaintCategory}
+                                    onSelect={setComplaintCategory}
+                                />
+                                <RadioCard
+                                    label="Other"
+                                    value="Other"
+                                      name="complaintCategory"
+                                    selected={complaintCategory}
+                                    onSelect={setComplaintCategory}
+                                />
+                            </div>
+                        </section>
+                    )}
+
 
                 </div>
 
@@ -157,6 +244,7 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
                 </div>
             </Card>
         </main>
+           </>
     );
 };
 
@@ -165,10 +253,11 @@ interface RadioCardProps {
     label: string;
     value: string;
     selected: string;
+    name: string;
     onSelect: (value: string) => void;
 }
 
-const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, onSelect }) => {
+const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, name, onSelect }) => {
     const isActive = selected === value;
 
     return (
@@ -182,7 +271,7 @@ const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, onSelect 
             <input
                 type="radio"
                 value={value}
-                name="rights"
+                name={name}
                 checked={isActive}
                 readOnly
                 className="accent-red-600 w-4 h-4 mr-3"

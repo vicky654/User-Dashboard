@@ -1,7 +1,7 @@
 import React from "react";
 import { Shield, ClipboardList, AlertCircle, FileText, Info, XCircle, CheckCircle2, Bell } from "lucide-react";
 import { Button } from "@mantine/core";
-import ConsentHistory from "./ConsentHistory";
+import ConsentHistory from "./ConsemtManger/ConsentHistory";
 import { useNavigate } from "react-router-dom";
 import { IRootState } from "../../store";
 import { useSelector } from "react-redux";

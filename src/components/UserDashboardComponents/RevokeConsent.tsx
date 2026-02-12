@@ -91,6 +91,8 @@ const handleRevoke = async () => {
   }
 };
 
+console.log("id",  id)
+
 
   return (
     <main className="flex justify-center">
