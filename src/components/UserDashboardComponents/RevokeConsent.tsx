@@ -73,10 +73,11 @@ const handleRevoke = async () => {
 
   try {
     const payload = {
-      request_type_id: id,
+      
       name: UserDetails?.name ?? "",
       email: UserDetails?.email ?? "",
       phone: UserDetails?.phone ?? "",
+      request_type_id: data?.revoke_request_type_id ?? "",
       details,
       confirmed,
     };
