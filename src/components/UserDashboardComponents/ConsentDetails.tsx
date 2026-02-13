@@ -87,15 +87,20 @@ const ConsentDetails = ({ execute, isLoading }: ApiProps) => {
             </Text>
 
             <div className="p-4 border rounded-md bg-gray-50 text-sm whitespace-pre-wrap">
-              {data?.template_body ||
-                `No template body available from API.`}
+       <p
+          className="text-gray-700 mb-2"
+          dangerouslySetInnerHTML={{ __html: data?.template?.body || `No template body available from API.` }}
+        />
             </div>
+          
           </Card>
         </div>
 
         {/* RIGHT SECTION */}
         <div className="space-y-4">
-          <Card
+          {
+            data?.status !== "Expired"  && data?.status !== "Withdrawn" ? (
+                 <Card
             shadow="sm"
             p="lg"
             radius="md"
@@ -123,7 +128,9 @@ const ConsentDetails = ({ execute, isLoading }: ApiProps) => {
             >
               Withdraw Consent
             </Button>
-          </Card>
+          </Card> ) : null
+          }
+       
 
           <Card shadow="sm" p="lg" radius="md" withBorder>
             <div className="flex items-start mb-3">
