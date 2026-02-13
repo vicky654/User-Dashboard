@@ -85,7 +85,8 @@ const handleRevoke = async () => {
   
       await execute(() => ConsentAPI.Revoke(payload));
       showMessage("DPAP Settings Updated Successfully", "success");
-      navigate("/complaint-submitted");
+           navigate("/complaint-submitted");
+      
 
   } catch (error) {
     console.error("Revoke failed", error);
@@ -105,9 +106,9 @@ console.log("id",  id)
         <Text size="sm" c="dimmed" mb="md">
           You are about to revoke consent for{" "}
           <span className="font-semibold  bg-blue-100 px-1 ">
-            'Personalized Advertising'
+           {data?.processing_activity?.name || "this purpose"}
           </span>{" "}
-          with <span className="font-semibold text-gray-900">'Retailer Co.'</span>.
+          with <span className="font-semibold text-gray-900">  {data?.tenant?.tenant_name}</span>.
         </Text>
 
         <Divider my="sm" />
@@ -121,7 +122,7 @@ console.log("id",  id)
           radius="md"
           mb="lg"
         >
-          Revoking consent will stop Retailer Co from using your data for this purpose. This
+          Revoking consent will stop {data?.tenant?.tenant_name} from using your data for  {data?.processing_activity?.name || "this purpose"}. This
           means you may see less relevant ads from them in the future.
         </Alert>
 
