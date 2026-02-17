@@ -1,8 +1,120 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Badge, Text } from "@mantine/core";
 import { FileText, CheckCircle, CircleDot, Clock, XCircle } from "lucide-react";
+import withApiHandler from "../../api/withApiHandler";
+import { ConsentAPI } from "../../api/domains/consent.api";
+import { useParams } from "react-router-dom";
 
-const ComplaintDetails: React.FC = () => {
+interface ApiProps {
+  execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
+  isLoading?: boolean;
+}
+
+
+interface ComplaintDetails {
+  TrackAssigneeStatus: {
+    id: number;
+    from_user: string;
+    to_user: string;
+    status: string;
+    comment: string | null;
+    dpo_comment: string | null;
+    attachment: string | null;
+    created_at: string;
+  }[];
+
+  actionButtons: {
+    assign: boolean;
+    mark_completed: boolean;
+    reassign: boolean;
+    update_task: boolean;
+  };
+
+  assignedUsers: {
+    id: number;
+    name: string;
+  }[];
+
+  close_comment: {
+    closed_comment: string | null;
+    closed_attachment: string | null;
+    closed_on: string | null;
+  };
+
+  consents: any[];
+
+  dataPrincipalInformation: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+
+  escalation: {
+    isEscalated: boolean;
+    escalatedComment: string | null;
+    escalatedDate: string | null;
+  };
+
+  nomineeDetails: {
+    nominee_name: string;
+    nominee_dob: string;
+    nominee_email: string | null;
+    nominee_number: string | null;
+    nominee_address: string | null;
+    nominee_relation_id: number;
+  };
+
+  requestInformation: {
+    currentStatus: string;
+    processingActivity: string[];
+    requestNo: string;
+    requestType: string;
+    slaRisk: "Low" | "Medium" | "High";
+  };
+
+  requestWorkflow: {
+    date: string;
+    stage: string;
+  }[];
+
+  timeline: {
+    createdOn: string;
+    lastUpdated: string;
+    completedOn: string | null;
+    daysOpen: number;
+    daysRemaining: number | null;
+  };
+}
+
+
+
+const ComplaintDetails: React.FC<ApiProps> = ({ execute, isLoading }) => {
+
+    const { id } = useParams<{ id: string }>();
+    console.log("Complaint ID:", id);
+
+  const [complaintDetails, setComplaintDetails] = React.useState<ComplaintDetails|null>(null);
+
+
+  const complaintData = async () => {
+    if (!id) return;
+
+    const res = await execute(() => ConsentAPI.myRequestDetials(id));
+    const api = res.data.data;
+
+    console.log("Complaint Details API Response:", api);
+    setComplaintDetails(api);
+  };
+
+
+  useEffect(() => {
+    complaintData();
+  }, [id]);
+
+
+
+
+
   const complaint = {
     id: "CMP-2024-000123",
     dateReceived: "July 15, 2024",
@@ -58,19 +170,19 @@ const ComplaintDetails: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-3 mb-4 text-sm">
           <div>
             <Text c="dimmed" size="xs">Complaint ID</Text>
-            <Text>{complaint.id}</Text>
+            <Text>{complaintDetails?.requestInformation?.requestNo}</Text>
           </div>
           <div>
             <Text c="dimmed" size="xs">Date Received</Text>
-            <Text>{complaint.dateReceived}</Text>
+            <Text>{complaintDetails?.timeline?.createdOn}</Text>
           </div>
           <div>
             <Text c="dimmed" size="xs">Status</Text>
-            <Badge color="yellow" variant="light">{complaint.status}</Badge>
+            <Badge color="yellow" variant="light">{complaintDetails?.requestInformation?.currentStatus}</Badge>
           </div>
           <div>
             <Text c="dimmed" size="xs">Data Principal</Text>
-            <Text>{complaint.dataPrincipal}</Text>
+            <Text>{complaintDetails?.dataPrincipalInformation?.name}</Text>
           </div>
           <div>
             <Text c="dimmed" size="xs">Data Fiduciary</Text>
@@ -78,7 +190,7 @@ const ComplaintDetails: React.FC = () => {
           </div>
           <div>
             <Text c="dimmed" size="xs">Complaint Type</Text>
-            <Text>{complaint.complaintType}</Text>
+            <Text>{complaintDetails?.requestInformation?.requestType}</Text>
           </div>
         </div>
 
@@ -103,10 +215,10 @@ const ComplaintDetails: React.FC = () => {
                 <div className={`${item.color} `}>{item.icon}</div>
               </div>
               <div className="ms-4">
-                      <p className="font-medium text-gray-800 mr-4">{item.title}</p>
-              <p className="text-xs text-gray-500">{item.date}</p>
+                <p className="font-medium text-gray-800 mr-4">{item.title}</p>
+                <p className="text-xs text-gray-500">{item.date}</p>
               </div>
-        
+
             </div>
           ))}
         </div>
@@ -115,4 +227,4 @@ const ComplaintDetails: React.FC = () => {
   );
 };
 
-export default ComplaintDetails;
+export default withApiHandler(ComplaintDetails); // Wrap with withApiHandlerComplaintDetails;

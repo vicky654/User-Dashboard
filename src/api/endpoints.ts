@@ -60,7 +60,11 @@ export const ENDPOINTS = {
 
     },
 
+  },
 
+  myrequests: {
+    list: "/request/user-dashboard",
+    requestdetails: (id: number | string) => `/open-request/${id}`,
 
   },
 

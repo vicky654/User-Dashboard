@@ -23,5 +23,10 @@ export const ConsentAPI = {
           consentdetail: (id: number | string) => apiClient.get(ENDPOINTS.consent.user.consentdetail(id)),
               managerights: (params?: any) => apiClient.get(ENDPOINTS.consent.user.managerights, { params }),
 
+
+              openRequest: (params?: any) => apiClient.get(ENDPOINTS.myrequests.list, { params }),
+              myRequestDetials: (id: number | string) => apiClient.get(ENDPOINTS.myrequests.requestdetails(id)),
+
+
         
 };

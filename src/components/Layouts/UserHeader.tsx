@@ -4,15 +4,17 @@ import UserHeaderLogo from "../Icon/UserHeaderLogo";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../store";
+import { NavLink } from "react-router-dom";
+
 
 const UserHeader: React.FC = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-         const UserDetails = useSelector(
-         (state: IRootState) => state.auth.user ?? null
-       );
+  const UserDetails = useSelector(
+    (state: IRootState) => state.auth.user ?? null
+  );
 
-       console.log("UserDetails in UserHeader:", UserDetails);
+  console.log("UserDetails in UserHeader:", UserDetails);
 
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white border-b">
@@ -26,10 +28,36 @@ const UserHeader: React.FC = () => {
 
       {/* Right Nav */}
       <nav className="flex items-center gap-6">
-        <span className="nav-link cursor-pointer" onClick={() => navigate("/")}>Dashboard</span>
-        <span className="nav-link cursor-pointer" onClick={() => navigate("/manage-consents")}>My Consents</span>
-        <span className="nav-link cursor-pointer" onClick={() => navigate("/rights-grievance-history")}>My Requests</span>
-        <span className="nav-link cursor-pointer">Settings</span>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            `cursor-pointer text-sm font-medium transition ${isActive
+              ? "text-red-600 border-b-2 border-red-600 pb-1"
+              : "text-gray-600 hover:text-red-500"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+        <NavLink className={({ isActive }) =>
+          `cursor-pointer text-sm font-medium transition ${isActive
+            ? "text-red-600 border-b-2 border-red-600 pb-1"
+            : "text-gray-600 hover:text-red-500"
+          }`
+        } to="/manage-consents">My Consents</NavLink>
+        <NavLink className={({ isActive }) =>
+          `cursor-pointer text-sm font-medium transition ${isActive
+            ? "text-red-600 border-b-2 border-red-600 pb-1"
+            : "text-gray-600 hover:text-red-500"
+          }`
+        } to="/rights-grievance-history">My Requests</NavLink>
+        <NavLink className={({ isActive }) =>
+          `cursor-pointer text-sm font-medium transition ${isActive
+            ? "text-red-600 border-b-2 border-red-600 pb-1"
+            : "text-gray-600 hover:text-red-500"
+          }`
+        } to="/settings">Settings</NavLink>
 
         <div
           className="rounded-full bg-gray-200 p-1 cursor-pointer"
@@ -50,7 +78,7 @@ const UserHeader: React.FC = () => {
           {open && (
             <div className="absolute right-0 mt-3 w-56 bg-white border rounded-lg shadow-md">
               <div className="px-4 py-3 border-b font-medium">
-              {UserDetails ? UserDetails?.name : 'Guest'}
+                {UserDetails ? UserDetails?.name : 'Guest'}
               </div>
 
               <button

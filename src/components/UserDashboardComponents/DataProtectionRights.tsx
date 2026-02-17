@@ -58,7 +58,7 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
     }, []);
     const handleSubmit = () => {
 
-        if (category === "Right to nominate") {
+        if (category === "Right to Nominate") {
             navigate("/NomineeForm");
             return;
         }
