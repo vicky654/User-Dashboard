@@ -77,7 +77,14 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
       await execute(() => DataProtectionRightsAPI.create(payload));
 
       showMessage("Complaint submitted successfully", "success");
-      navigate("/complaint-submitted");
+
+
+      if(category.name == "Right to Nominate"){
+        navigate("/NomineeForm");
+      }else{
+          navigate("/complaint-submitted");
+      }
+    
 
       // reset
       setCategory(null);
