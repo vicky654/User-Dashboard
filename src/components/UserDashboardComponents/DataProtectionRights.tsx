@@ -80,7 +80,7 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
 
 
       if(category.name == "Right to Nominate"){
-        navigate("/NomineeForm");
+        navigate(`/NomineeForm/${category.id}`);
       }else{
           navigate("/complaint-submitted");
       }

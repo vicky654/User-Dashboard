@@ -223,7 +223,7 @@ const routes = [
 },
 {
 
-    path: "/NomineeForm",
+    path: "/NomineeForm/:id",
     element: <NomineeForm />
 },
 {

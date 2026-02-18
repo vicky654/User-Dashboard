@@ -1,3 +1,4 @@
+import { request } from "http";
 import { create } from "sortablejs";
 
 export const ENDPOINTS = {
@@ -68,10 +69,23 @@ export const ENDPOINTS = {
 
 // Data Protection Rights
 
+
+
 DataProtectionRights:{
   create:"/request/create",
 },
 
+
+// Nominee API user-dashboard
+// https://rdocker.dpdp.in.net/api/request/user-dashboard
+// https://rdocker.dpdp.in.net/api/request/create
+
+Nominee :{
+  request:"/request/user-dashboard",
+  create:"/request/create",
+  nomineerelations: "/nominee-relations",
+},
+ 
 
   myrequests: {
     list: "/request/user-dashboard",
