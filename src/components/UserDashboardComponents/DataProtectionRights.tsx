@@ -1,195 +1,151 @@
 import React, { useState, useEffect } from "react";
-import {
-    Card,
-    Textarea,
-    Button,
-    Text,
-    FileButton,
-} from "@mantine/core";
+import { Card, Textarea, Button, Text, FileButton } from "@mantine/core";
 import { UploadCloud } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import withApiHandler from "../../api/withApiHandler";
 import { ConsentAPI } from "../../api/domains/consent.api";
 import LoaderImg from "../../utils/Loader";
+import showMessage from "../../utils/showMessage";
+import { DataProtectionRightsAPI } from "../../api/domains/dataprotectionrights.api";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../store";
+import { RadioCard, SimpleRadio } from "../../pages/Components/RadioCard";
 
-
-
-interface userManageData {
-    name: string;
-    email: string;
-    phone: string;
+interface RequestType {
+  id: number;
+  name: string;
 }
 
-
 interface ApiProps {
-    execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
-    isLoading?: boolean;
+  execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
+  isLoading?: boolean;
 }
 
 const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
-    const [category, setCategory] = useState<string>("");
-    const [details, setDetails] = useState("");
-    const [file, setFile] = useState<File | null>(null);
-    const [userData, setUserData] = useState<userManageData[]>([]);
+  const [category, setCategory] = useState<RequestType | null>(null);
+  const [details, setDetails] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [requestTypes, setRequestTypes] = useState<RequestType[]>([]);
+  const [complaintCategory, setComplaintCategory] = useState<string>("");
 
-    const [complaintCategory, setComplaintCategory] = useState<string>("");
+  const UserDetails = useSelector(
+    (state: IRootState) => state.auth.user ?? null
+  );
 
+  const navigate = useNavigate();
 
-    console.log("category", category);
-    const navigate = useNavigate();
+  // ================== FETCH REQUEST TYPES ==================
+  const manageUserData = async () => {
+    const res = await execute(() => ConsentAPI.managerights());
+    const records = res.data.data.records || [];
+    setRequestTypes(records);
+  };
 
+  useEffect(() => {
+    manageUserData();
+  }, []);
 
+  // ================== SUBMIT ==================
+  const handleSubmit = async () => {
+    if (!category) {
+      showMessage("Please select request category", "error");
+      return;
+    }
 
+    if (!details.trim()) {
+      showMessage("Please enter complaint details", "error");
+      return;
+    }
 
-    const manageUserData = async () => {
-        const res = await execute(() => ConsentAPI.managerights());
+    try {
+      const payload: any = {
+        request_type_id: category.id,
+        category_name: category.name,
+        name: UserDetails?.name ?? "",
+        email: UserDetails?.email ?? "",
+        phone: UserDetails?.phone ?? "",
+        details,
+        file_name: file?.name || null,
+      };
 
-        const api = res.data.data;
-        setUserData(res.data.data.records);
-        console.log("user data", api.records);
+      if (complaintCategory) {
+        payload.complaint_category = complaintCategory;
+      }
 
-    };
+      console.log("FINAL PAYLOAD", payload);
 
+      await execute(() => DataProtectionRightsAPI.create(payload));
 
-    useEffect(() => {
-        manageUserData();
+      showMessage("Complaint submitted successfully", "success");
+      navigate("/complaint-submitted");
 
-       
-    }, []);
-    const handleSubmit = () => {
+      // reset
+      setCategory(null);
+      setDetails("");
+      setFile(null);
+      setComplaintCategory("");
+    } catch (error) {
+      console.error(error);
+      showMessage("Something went wrong", "error");
+    }
+  };
 
-        if (category === "Right to Nominate") {
-            navigate("/NomineeForm");
-            return;
-        }
+  // ================== UI ==================
+  return (
+    <>
+      {isLoading ? <LoaderImg /> : null}
 
-        navigate("/complaint-submitted");
-        // if (!details.trim()) {
+      <main className="bg-gray-50 flex flex-col items-center py-10 min-h-screen">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-semibold text-gray-900">
+            Your Data Protection Rights
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">
+            Please provide the details of your complaint.
+          </p>
+        </div>
 
-        //     navigate("/complaint-submitted");
-        //     alert("Please provide a detailed description of your complaint.");
-        //     return;
-        // }
-        // alert(
-        //     `Complaint submitted under "${category}" with details:\n\n${details}${file ? `\nAttached file: ${file.name}` : ""
-        //     }`
-        // );
-        setDetails("");
-        setFile(null);
-        setCategory("Right to correction");
+        <Card shadow="sm" radius="md" p="xl" withBorder className="max-w-2xl w-full bg-white">
+          {/* CATEGORY */}
+          <div className="mb-6">
+            <Text fw={600} mb={4}>Request Category</Text>
 
-    };
-    console.log("category", category, complaintCategory);
-    return (
-        <>
-         {isLoading ? <LoaderImg /> : null}
-     
-        <main className="bg-gray-50 flex flex-col items-center justify-start py-10 min-h-screen">
-            {/* Header */}
-            <div className="text-center mb-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                    Your Data Protection Rights
-                </h1>
-                <p className="text-gray-500 text-sm mt-1">
-                    We take your concerns seriously. Please provide the details of your complaint below.
-                </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+           {requestTypes.map((item) => (
+  <RadioCard
+    key={item.id}
+    label={item.name}
+    value={item}
+    selected={category}
+    onSelect={setCategory}
+  />
+))}
+
             </div>
 
-            {/* Form Card */}
-            <Card shadow="sm" radius="md" p="xl" withBorder className="max-w-2xl w-full bg-white">
-                {/* Request Category */}
-                <div className="mb-6">
-                    <Text fw={600} mb={4}>
-                        Request Category
-                    </Text>
-                    <Text size="sm" c="dimmed" mb={10}>
-                        Select the category that best describes your complaint.
-                    </Text>
+            {/* GRIEVANCE CATEGORY */}
+            {category?.name === "Right to grievance redressal" && (
+              <section className="mt-6">
+                <Text fw={600} mb={4}>Complaint Category</Text>
 
-                    {/* ✅ FIXED GRID LAYOUT */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                         {userData?.map((item) => (
-                        <RadioCard
-                            label={item.name}
-                            value={item.name}
-                            name="rights"
-                            selected={category}
-                            onSelect={setCategory}
-                        />
-
-                        ))}
-                        {/* <RadioCard
-                            label="Right to erasure"
-                            value="Right to erasure"
-                              name="rights"
-                            selected={category}
-                            onSelect={setCategory}
-                        />
-                        <RadioCard label="Right to nominate"
-                            value="Right to nominate"
-                              name="rights"
-                            selected={category}
-                            onSelect={setCategory} />
-
-
-                        <RadioCard
-                            label="Right to grievance redressal"
-                            value="Right to grievance redressal"
-                            selected={category}
-                              name="rights"
-                            onSelect={setCategory} /> */}
-                    </div>
-
-
-
-                    {/* 🔽 Show ONLY when Right to grievance redressal is selected */}
-                    {category === "Right to grievance redressal" && (
-                       <section className="mb-6">
-                            <Text fw={600} mb={4}>
-                                Complaint Category
-                            </Text>
-                            <Text size="sm" c="dimmed" mb={10}>
-                                Select the category that best describes your complaint.
-                            </Text>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <RadioCard
-                                    label="Data Breach"
-                                    value="Data Breach"
-                                      name="complaintCategory"
-                                    selected={complaintCategory}
-                                    onSelect={setComplaintCategory}
-                                />
-                                <RadioCard
-                                    label="Consent Violation"
-                                    value="Consent Violation"
-                                      name="complaintCategory"
-                                    selected={complaintCategory}
-                                    onSelect={setComplaintCategory}
-                                />
-                                <RadioCard
-                                    label="Processing Errors"
-                                    value="Processing Errors"
-                                      name="complaintCategory"
-                                    selected={complaintCategory}
-                                    onSelect={setComplaintCategory}
-                                />
-                                <RadioCard
-                                    label="Other"
-                                    value="Other"
-                                      name="complaintCategory"
-                                    selected={complaintCategory}
-                                    onSelect={setComplaintCategory}
-                                />
-                            </div>
-                        </section>
-                    )}
-
-
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {["Data Breach", "Consent Violation", "Processing Errors", "Other"].map((c) => (
+                    <SimpleRadio
+                      key={c}
+                      label={c}
+                      value={c}
+                      selected={complaintCategory}
+                      onSelect={setComplaintCategory}
+                    />
+                    
+                  ))}
                 </div>
+              </section>
+            )}
+          </div>
 
-                {/* Complaint Details */}
-                <div className="mb-6">
+          {/* DETAILS */}
+          <div className="mb-6">
                     <Text fw={600} mb={6}>
                         Complaint Details
                     </Text>
@@ -202,8 +158,8 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
                     />
                 </div>
 
-                {/* File Upload */}
-                <div className="mb-6">
+          {/* FILE */}
+     <div className="mb-6">
                     <Text fw={600} mb={6}>
                         Attach Files (Optional)
                     </Text>
@@ -230,8 +186,8 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
                     </div>
                 </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-end">
+          {/* SUBMIT */}
+        <div className="flex justify-end">
                     <Button
                         color="red"
                         radius="md"
@@ -242,48 +198,13 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
                         Submit Complaint
                     </Button>
                 </div>
-            </Card>
-        </main>
-           </>
-    );
-};
-
-// ✅ Custom RadioCard Component
-interface RadioCardProps {
-    label: string;
-    value: string;
-    selected: string;
-    name: string;
-    onSelect: (value: string) => void;
-}
-
-const RadioCard: React.FC<RadioCardProps> = ({ label, value, selected, name, onSelect }) => {
-    const isActive = selected === value;
-
-    return (
-        <div
-            onClick={() => onSelect(value)}
-            className={`border rounded-lg w-full px-4 py-3 flex items-center cursor-pointer transition-all duration-150 ${isActive
-                ? "border-red-500 bg-red-50 shadow-sm"
-                : "border-gray-300 hover:border-gray-400"
-                }`}
-        >
-            <input
-                type="radio"
-                value={value}
-                name={name}
-                checked={isActive}
-                readOnly
-                className="accent-red-600 w-4 h-4 mr-3"
-            />
-            <span
-                className={`text-sm ${isActive ? "text-red-600 font-medium" : "text-gray-700"
-                    }`}
-            >
-                {label}
-            </span>
-        </div>
-    );
+        </Card>
+      </main>
+    </>
+  );
 };
 
 export default withApiHandler(DataProtectionRights);
+
+
+

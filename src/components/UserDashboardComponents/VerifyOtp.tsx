@@ -49,7 +49,7 @@ const VerifyOtp: React.FC = () => {
     setTimer(45);
     setOtp(Array(6).fill(""));
     inputsRef.current[0]?.focus();
-    console.log("Resent OTP");
+    
   };
 
   return (

@@ -1,3 +1,5 @@
+import { create } from "sortablejs";
+
 export const ENDPOINTS = {
   // =========================
   // AUTH
@@ -57,10 +59,19 @@ export const ENDPOINTS = {
       revoke: "/request/create",
       consentdetail: (id: number | string) => `/consent/${id}`,
       managerights: "/request-types/",
+      // https://rdocker.dpdp.in.net/api/request/create
+
 
     },
 
   },
+
+// Data Protection Rights
+
+DataProtectionRights:{
+  create:"/request/create",
+},
+
 
   myrequests: {
     list: "/request/user-dashboard",
