@@ -64,8 +64,8 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
         name: UserDetails?.name ?? "",
         email: UserDetails?.email ?? "",
         phone: UserDetails?.phone ?? "",
-        details,
-        file_name: file?.name || null,
+        dp_comment: details,
+        file: file?.name || null,
       };
 
       if (complaintCategory) {

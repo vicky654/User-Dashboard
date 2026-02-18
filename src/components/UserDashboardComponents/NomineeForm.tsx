@@ -147,7 +147,6 @@ const handleSubmit = async () => {
    name: UserDetails?.name ?? "",
         email: UserDetails?.email ?? "",
         phone: UserDetails?.phone ?? "",
-        dp_comment:"",
          nominee_name: form.name,
          nominee_dob: form.dob,
          nominee_email: form.email,
