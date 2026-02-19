@@ -56,6 +56,26 @@ const fetchUserData = async () => {
   });
 };
 
+const fetchExport = async (type: string) => {
+    const res = await execute(() => ConsentAPI.exportHistory(type));
+
+    const blob = new Blob([res.data], {
+      type: "application/vnd.ms-excel",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `consent-history-${type}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+};
+
 
   useEffect(()=>{
 
@@ -81,14 +101,14 @@ const fetchUserData = async () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-semibold">Consent History</h2>
+          <h2 className="text-2xl font-semibold">Consent History data</h2>
           <p className="text-gray-500 text-sm">
             View and manage your data consent history.
           </p>
         </div>
 
         {/* Download Button */}
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center space-x-2 transition">
+        <button onClick={() => fetchExport(currentTab)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center space-x-2 transition">
           <Download size={16} />
           <span>Download History</span>
         </button>

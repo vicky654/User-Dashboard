@@ -26,6 +26,8 @@ export const ConsentAPI = {
 
               openRequest: (params?: any) => apiClient.get(ENDPOINTS.myrequests.list, { params }),
               myRequestDetials: (id: number | string) => apiClient.get(ENDPOINTS.myrequests.requestdetails(id)),
+              exportHistory: (type: string, params?: any) => apiClient.get(ENDPOINTS.consent.user.historyexport(type), { params, responseType: 'blob' }),
+                myExportHistory: (type: string, params?: any) => apiClient.get(ENDPOINTS.consent.user.myhistoryexport(type), { params, responseType: 'blob' }),
 
 
         

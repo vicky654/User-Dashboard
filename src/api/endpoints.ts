@@ -60,7 +60,12 @@ export const ENDPOINTS = {
       revoke: "/request/create",
       consentdetail: (id: number | string) => `/consent/${id}`,
       managerights: "/request-types/",
-      // https://rdocker.dpdp.in.net/api/request/create
+      historyexport:(type: string) => `/consent/portal-user-consents-xlsx?type=${type}`,
+      myhistoryexport:(type: string) => `/request/download-dashboard-xlsx?request_type=${type}`,
+      
+          // https://rdocker.dpdp.in.net/api/request/create
+
+  
 
 
     },

@@ -66,6 +66,26 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
     setOpenData(api);
   };
 
+
+  const fetchmyRequestExport = async (type: string) => {
+    const res = await execute(() => ConsentAPI.myExportHistory(type));
+
+   const blob = new Blob([res.data], {
+      type: "application/vnd.ms-excel",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `consent-history-${type}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     userOpenRequest();
   }, []);
@@ -130,7 +150,7 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
           >
             Access Rights
           </Button>
-          <Button
+          <Button onClick={()=> fetchmyRequestExport(activeTab)}
               color="red"
                         radius="md"
                         variant="filled"
