@@ -52,6 +52,13 @@ const UserHeader: React.FC = () => {
             : "text-gray-600 hover:text-red-500"
           }`
         } to="/rights-grievance-history">My Requests</NavLink>
+
+        <NavLink className={({ isActive }) =>
+          `cursor-pointer text-sm font-medium transition ${isActive
+            ? "text-red-600 border-b-2 border-red-600 pb-1"
+            : "text-gray-600 hover:text-red-500"
+          }`
+        } to="/data-protection-rights">Manage Rights</NavLink>
         <NavLink className={({ isActive }) =>
           `cursor-pointer text-sm font-medium transition ${isActive
             ? "text-red-600 border-b-2 border-red-600 pb-1"

@@ -6,6 +6,7 @@ import withApiHandler from "../../api/withApiHandler";
 import { requestAPI } from '../../api/request';
 import { ConsentAPI } from "../../api/domains/consent.api";
 import { formatDate, formatDateTime } from "../../utils/HelperFunctions";
+import LoaderImg from "../../utils/Loader";
 
 interface Consent {
   id: number;
@@ -98,6 +99,7 @@ const fetchExport = async (type: string) => {
   
   return (
     <main className="p-8 bg-gray-50 min-h-screen">
+       {isLoading ? <LoaderImg /> : null}
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
