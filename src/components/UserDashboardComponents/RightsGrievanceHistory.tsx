@@ -103,16 +103,16 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
   //   { id: "GRV456", date: "2023-06-18", status: "InProgress", right: "Right to Nominate" },
   // ];
 
-  const requests = openData?.requests.record || [];
-  const grievances = openData?.grievance.record || [];
+  const requests = openData?.requests?.record || [];
+  const grievances = openData?.grievance?.record || [];
 
   const data = activeTab === "requests" ? requests : grievances;
 
-  const filteredData = data.filter(
+  const filteredData = data?.filter(
     (item) =>
-      item.request_no.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.purpose.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.status.toLowerCase().includes(searchQuery.toLowerCase())
+      (item.request_no ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (item.purpose ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (item.status ?? "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const getStatusBadge = (status: string) => {
@@ -174,8 +174,8 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
       {/* Tabs */}
       <Tabs value={activeTab} onTabChange={(value) => setActiveTab(value ?? "requests")}>
         <Tabs.List>
-          <Tabs.Tab value="requests">Requests ({openData?.requests.count ?? 0})</Tabs.Tab>
-          <Tabs.Tab value="grievance">Grievance ({openData?.grievance.count ?? 0})</Tabs.Tab>
+          <Tabs.Tab value="requests">Requests ({openData?.requests?.count ?? 0})</Tabs.Tab>
+          <Tabs.Tab value="grievance">Grievance ({openData?.grievance?.count ?? 0})</Tabs.Tab>
         </Tabs.List>
 
         {/* Table Panel */}
@@ -191,8 +191,8 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {openData?.requests.record.length ? (
-                  openData?.requests.record.map((item, index) => (
+                {openData?.requests?.record?.length ? (
+                  openData?.requests?.record?.map((item, index) => (
                     <tr key={index}  onClick={() => navigate(`/complaint-details/${item.id}`)} style={{"cursor":"pointer"}}>
                       <td>{item.request_no}</td>
                       <td>{formatDate(item?.created_at)}</td>
@@ -224,8 +224,8 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {openData?.grievance.record.length ? (
-                  openData?.grievance.record.map((item, index) => (
+                {openData?.grievance?.record?.length ? (
+                  openData?.grievance?.record?.map((item, index) => (
                     <tr key={index}  onClick={() => navigate(`/complaint-details/${item.id}`)} style={{"cursor":"pointer"}}  >
                       <td>{item?.request_no}</td>
                       <td>{formatDate(item?.created_at)}</td>

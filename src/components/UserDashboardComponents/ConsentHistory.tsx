@@ -42,7 +42,7 @@ const fetchUserData = async () => {
   const api = res.data.data;
 
   const mapData = (arr: any[], status: "Active" | "Expired" | "Withdrawn") =>
-    arr.map((item) => ({
+    arr?.map((item) => ({
       id: item.id,
       purpose: item.processing_activity,
       dateGranted: item.date_granted,
@@ -51,9 +51,9 @@ const fetchUserData = async () => {
     }));
 
   setConsents({
-    active: mapData(api.active.data, "Active"),
-    expired: mapData(api.expired.data, "Expired"),
-    withdrawn: mapData(api.withdrawn.data, "Withdrawn"),
+    active: mapData(api?.active?.data, "Active"),
+    expired: mapData(api?.expired?.data, "Expired"),
+    withdrawn: mapData(api?.withdrawn?.data, "Withdrawn"),
   });
 };
 
@@ -90,7 +90,7 @@ const fetchExport = async (type: string) => {
   const currentTab = (activeTab ?? "active") as string;
 
   const filteredData = consents[currentTab].filter((c) =>
-    c.purpose.toLowerCase().includes(searchQuery.toLowerCase())
+    (c.purpose ?? "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
 
@@ -172,7 +172,7 @@ const ConsentTable: React.FC<ConsentTableProps> = ({ data, showRevoke = false, o
           </tr>
         </thead>
         <tbody>
-          {data.map((c) => (
+          {data?.map((c) => (
             <tr
               key={c.id}
               className="cursor-pointer hover:bg-gray-100 transition"
