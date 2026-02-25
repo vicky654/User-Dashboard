@@ -16,6 +16,7 @@ interface RequestType {
   name: string;
 }
 
+
 interface ApiProps {
   execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
   isLoading?: boolean;
@@ -53,7 +54,7 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
     }
 
     if (!details.trim()) {
-      showMessage("Please enter complaint details", "error");
+      showMessage("Please enterf complaint details", "error");
       return;
     }
 
