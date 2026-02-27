@@ -94,7 +94,7 @@ Nominee :{
 
   myrequests: {
     list: "/request/user-dashboard",
-    requestdetails: (id: number | string) => `/open-request/${id}`,
+    requestdetails: (id: number | string) => `/request/open-request/${id}`,
 
   },
 

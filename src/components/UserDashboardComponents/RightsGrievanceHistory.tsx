@@ -123,6 +123,10 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
         return <Badge color="yellow" variant="light">Initiated</Badge>;
       case "Assign to DPO":
         return <Badge color="blue" variant="light">Assign to DPO</Badge>;
+      case "Completed":
+        return <Badge color="green" variant="light">Completed</Badge>;
+      case "Rejected":
+        return <Badge color="red" variant="light">Rejected</Badge>;
       default:
         return <Badge color="gray" variant="light">Unknown</Badge>;
     }

@@ -4,11 +4,16 @@ import { FileText, CheckCircle, CircleDot, Clock, XCircle } from "lucide-react";
 import withApiHandler from "../../api/withApiHandler";
 import { ConsentAPI } from "../../api/domains/consent.api";
 import { useParams } from "react-router-dom";
+import LoaderImg from "../../utils/Loader";
 
 interface ApiProps {
   execute: <T>(apiCall: () => Promise<T>) => Promise<T>;
   isLoading?: boolean;
 }
+const formatDate = (value?: string) => {
+  if (!value) return "-";
+  return new Date(value).toLocaleString();
+};
 
 
 interface ComplaintDetails {
@@ -98,10 +103,8 @@ const ComplaintDetails: React.FC<ApiProps> = ({ execute, isLoading }) => {
 
   const complaintData = async () => {
     if (!id) return;
-
     const res = await execute(() => ConsentAPI.myRequestDetials(id));
     const api = res.data.data;
-
     console.log("Complaint Details API Response:", api);
     setComplaintDetails(api);
   };
@@ -154,6 +157,8 @@ const ComplaintDetails: React.FC<ApiProps> = ({ execute, isLoading }) => {
 
   return (
     <main className="bg-gray-50 min-h-screen flex flex-col items-center justify-start py-10 px-6">
+
+      {isLoading ? <LoaderImg /> : null}
       {/* Header */}
       <div className="w-full max-w-4xl mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Complaint Details</h1>
@@ -216,7 +221,7 @@ const ComplaintDetails: React.FC<ApiProps> = ({ execute, isLoading }) => {
               </div>
               <div className="ms-4">
                 <p className="font-medium text-gray-800 mr-4">{item.title}</p>
-                <p className="text-xs text-gray-500">{item.date}</p>
+                <p className="text-xs text-gray-500">{formatDate(item.date)}</p>
               </div>
 
             </div>
