@@ -1,21 +1,20 @@
 import { lazy } from 'react';
-import ToolsAutomation from '../components/Tools&Automation/ToolsAutomation';
-import Dashboard from '../components/UserDashboardComponents/Dashboard';
-import ConsentHistory from '../components/UserDashboardComponents/ConsentHistory';
-import ConsentDetails from '../components/UserDashboardComponents/ConsentDetails';
-import RevokeConsent from '../components/UserDashboardComponents/RevokeConsent';
-import ConsentNotice from '../components/UserDashboardComponents/ConsentNotice';
-import DataProtectionRights from '../components/UserDashboardComponents/DataProtectionRights';
-import RequestsFormGrievanceRedressalOptions from '../components/UserDashboardComponents/RequestsFormGrievanceRedressalOptions';
-import ComplaintSubmitted from '../components/UserDashboardComponents/ComplaintSubmitted';
-import RightsGrievanceHistory from '../components/UserDashboardComponents/RightsGrievanceHistory';
 import ComplaintDetails from '../components/UserDashboardComponents/ComplaintDetails';
-import NotificationsPage from '../components/UserDashboardComponents/NotificationsPage';
-import NomineeForm from '../components/UserDashboardComponents/NomineeForm';
-import NominationSummary from '../components/UserDashboardComponents/NominationSummary';
-import NomineeRequestStatus from '../components/UserDashboardComponents/NomineeRequestStatus';
+import ComplaintSubmitted from '../components/UserDashboardComponents/ComplaintSubmitted';
+import ConsentDetails from '../components/UserDashboardComponents/ConsentDetails';
+import ConsentHistory from '../components/UserDashboardComponents/ConsentHistory';
+import ConsentNotice from '../components/UserDashboardComponents/ConsentNotice';
+import Dashboard from '../components/UserDashboardComponents/Dashboard';
+import DataProtectionRights from '../components/UserDashboardComponents/DataProtectionRights';
 import LanguageSelection from '../components/UserDashboardComponents/LanguageSelection';
 import LoginWithOtp from '../components/UserDashboardComponents/LoginWithOtp';
+import NominationSummary from '../components/UserDashboardComponents/NominationSummary';
+import NomineeForm from '../components/UserDashboardComponents/NomineeForm';
+import NomineeRequestStatus from '../components/UserDashboardComponents/NomineeRequestStatus';
+import NotificationsPage from '../components/UserDashboardComponents/NotificationsPage';
+import RequestsFormGrievanceRedressalOptions from '../components/UserDashboardComponents/RequestsFormGrievanceRedressalOptions';
+import RevokeConsent from '../components/UserDashboardComponents/RevokeConsent';
+import RightsGrievanceHistory from '../components/UserDashboardComponents/RightsGrievanceHistory';
 import VerifyOtp from '../components/UserDashboardComponents/VerifyOtp';
 
 
@@ -163,7 +162,7 @@ const DataPrincipalActivity = lazy(() => import('../../src/pages/SideBarComponen
 const Tenants = lazy(() => import('../../src/pages/SideBarComponents/Tenants/Tenants'));
 
 
-const routes = [        
+const routes = [
     // dashboard
     // {
     //     path: '/',
@@ -173,204 +172,208 @@ const routes = [
         path: '/',
         element: <Dashboard />,
     },
-     {
+    {
         path: '/processingActivity',
         element: <ManageProcessingActivity />,
     },
-      {
+    {
         path: '/manage-consents',
         element: <ConsentHistory />,
     },
-        {
+    {
         path: '/consent-details/:id',
         element: <ConsentDetails />,
-        
+
     },
-        {
+    {
         path: '/login-otp',
-        element: <LoginWithOtp  />,
+        element: <LoginWithOtp />,
     },
     {
         path: '/verify-otp',
-        element: <VerifyOtp  />,
+        element: <VerifyOtp />,
     },
-      {
+    {
         path: '/language-selection',
         element: <LanguageSelection />,
     },
-        {
+    {
         path: '/revoke-consent/:id',
         element: <RevokeConsent />,
-        
+
     },
     {
-         path:"/consent-notice/:id",
-         element:<ConsentNotice />
+        path: "/consent-notice/:id",
+        element: <ConsentNotice />
     },
-{
+    {
 
-    path: "/data-protection-rights",
-    element: <DataProtectionRights />
-},
-{
+        path: "/data-protection-rights",
+        element: <DataProtectionRights />
+    },
+    {
 
-    path: "/nominee/summary",
-    element: <NominationSummary />
-},
-{
-    path: "/nominee/status",
-    element: <NomineeRequestStatus />
-},
-{
+        path: "/nominee/summary",
+        element: <NominationSummary />
+    },
+    {
+        path: "/nominee/status",
+        element: <NomineeRequestStatus />
+    },
+    {
 
-    path: "/NomineeForm/:id",
-    element: <NomineeForm />
-},
-{
+        path: "/NomineeForm/:id",
+        element: <NomineeForm />
+    },
+    {
 
-    path: "/notifications",
-    element: <NotificationsPage  />
-},
-{
-    path: "/complaint-details/:id",
-    element:<ComplaintDetails />
-},
- {
-    path: "/requests-form-grievance-redressal-options",
-    element: <RequestsFormGrievanceRedressalOptions />
-},
-{path:"/rights-grievance-history",
-     element:<RightsGrievanceHistory />},
-{path:"/complaint-submitted",
-     element:<ComplaintSubmitted />},
+        path: "/notifications",
+        element: <NotificationsPage />
+    },
+    {
+        path: "/complaint-details/:id",
+        element: <ComplaintDetails />
+    },
+    {
+        path: "/requests-form-grievance-redressal-options",
+        element: <RequestsFormGrievanceRedressalOptions />
+    },
+    {
+        path: "/rights-grievance-history",
+        element: <RightsGrievanceHistory />
+    },
+    {
+        path: "/complaint-submitted",
+        element: <ComplaintSubmitted />
+    },
 
-//        {
-//         path: '/tenants',
-//         element: <Tenants />,
-//     },
-//       {
-//         path: '/ToolsAutomation',
-//         element: <ToolsAutomation />,
-//     },
-    
-//    {
-//         path: '/create-ManageProcessingActivity',
-//         element: <CreateManageProcessingActivity />,
-//     },
-//    {
-//         path: '/internal-stakeholders',
-//         element: <ManageInternalStakeholders />,
-//     },
-//      {
-//         path: '/create-stakeholders',
-//         element: <CreateStackHolder />,
-//     },
-//   {
-//         path: '/manage-languages',
-//         element: <ManageLanguages />,
-//     },
+    //        {
+    //         path: '/tenants',
+    //         element: <Tenants />,
+    //     },
+    //       {
+    //         path: '/ToolsAutomation',
+    //         element: <ToolsAutomation />,
+    //     },
 
-//     {
-//         path: '/privacy-governance',
-//         element: <PrivacyGoverNance />,
-//     },
-//     {
-//         path: '/consent-manager-template',
-//         element: <ConsentManager />,
-//     },
-//        {
-//         path: '/consent-manager-dashboard',
-//         element: <ConsentManagerDashboard />,
-//     },
-//          {
-//         path: '/all-consent-requests',
-//         element: <AllConsentRequest />,
-//     },
-//    {
-//         path: '/cookie-consent-view/:id',
-//         element: <CookieConsentView />,
-//     },
+    //    {
+    //         path: '/create-ManageProcessingActivity',
+    //         element: <CreateManageProcessingActivity />,
+    //     },
+    //    {
+    //         path: '/internal-stakeholders',
+    //         element: <ManageInternalStakeholders />,
+    //     },
+    //      {
+    //         path: '/create-stakeholders',
+    //         element: <CreateStackHolder />,
+    //     },
+    //   {
+    //         path: '/manage-languages',
+    //         element: <ManageLanguages />,
+    //     },
+
+    //     {
+    //         path: '/privacy-governance',
+    //         element: <PrivacyGoverNance />,
+    //     },
+    //     {
+    //         path: '/consent-manager-template',
+    //         element: <ConsentManager />,
+    //     },
+    //        {
+    //         path: '/consent-manager-dashboard',
+    //         element: <ConsentManagerDashboard />,
+    //     },
+    //          {
+    //         path: '/all-consent-requests',
+    //         element: <AllConsentRequest />,
+    //     },
+    //    {
+    //         path: '/cookie-consent-view/:id',
+    //         element: <CookieConsentView />,
+    //     },
 
 
-//       {
-//         path: '/cookie-consent-dashboard',
-//         element: <CookieConsentDashboard />,
-//     },
-//       {
-//         path: '/cookie-consent-dashboard',
-//         element: <CookieConsentDashboard />,
-//     },
-//     {
-//         path: '/cookie-management',
-//         element: <CookieManagement />,
-//     },
-//      {
-//         path: '/cookie-management-item-details/:id',
-//         element: <CookieManagementItemDetails />,
-//     },
-//      {
-//         path: '/privacy-notice',
-//         element: <PrivacyNoticeDashboard />,
-//     },
-//         {
-//         path: '/privacy-notice-table',
-//         element: <PrivacyNoticeTableDash />,
-//     },
-//       {
-//         path: '/breach-notice',
-//         element: <BreachNoticeDashboard />,
-//     },
-//       {
-//         path: '/breach-notice-list',
-//         element: <AllBreachNotices />,
-//     },
-//        {
-//         path: '/privacy-notice-list',
-//         element: <AllPrivacyNotices />,
-//     },
-//         {
-//         path: '/breach-notice-table',
-//         element: <BreachNoticeTableDash />,
-//     },
-//     {
-//         path: '/consent-manager/template/:id',
-//         element: <ConsentTemplateEditor />,
-//     },
-//     {
-//         path: '/privacy-governance/consent',
-//         element: <ConsentManager />,
-//     },
-//     {
-//         path: '/privacy-governance/awareness',
-//         element: <AwarenessManagement />,
-//     },
-//     {
-//         path: '/roles-and-permissions',
-//         element: <RightsManagement />,
-//     },  {
-//         path: '/roles-listing',
-//         element: <RolesListing />,
-//     },
-//       {
-//         path: '/all-Settings',
-//         element: <Allsettings />,
-//     },
-//     {
-//         path: '/Settings',
-//         element: <SettingsPage />,
-//     },
-//     {
-//         path: '/privacy-governance/impact',
-//         element: <ImpactAssessment />,
-//     },
-//     {
-//         path: '/privacy-governance/third-party',
-//         element: <ThirdPartyAssessment />,
-//     },
-//        {
-//         path: '/data-principal-activity',
-//         element: <DataPrincipalActivity />,
-//     },
+    //       {
+    //         path: '/cookie-consent-dashboard',
+    //         element: <CookieConsentDashboard />,
+    //     },
+    //       {
+    //         path: '/cookie-consent-dashboard',
+    //         element: <CookieConsentDashboard />,
+    //     },
+    //     {
+    //         path: '/cookie-management',
+    //         element: <CookieManagement />,
+    //     },
+    //      {
+    //         path: '/cookie-management-item-details/:id',
+    //         element: <CookieManagementItemDetails />,
+    //     },
+    //      {
+    //         path: '/privacy-notice',
+    //         element: <PrivacyNoticeDashboard />,
+    //     },
+    //         {
+    //         path: '/privacy-notice-table',
+    //         element: <PrivacyNoticeTableDash />,
+    //     },
+    //       {
+    //         path: '/breach-notice',
+    //         element: <BreachNoticeDashboard />,
+    //     },
+    //       {
+    //         path: '/breach-notice-list',
+    //         element: <AllBreachNotices />,
+    //     },
+    //        {
+    //         path: '/privacy-notice-list',
+    //         element: <AllPrivacyNotices />,
+    //     },
+    //         {
+    //         path: '/breach-notice-table',
+    //         element: <BreachNoticeTableDash />,
+    //     },
+    //     {
+    //         path: '/consent-manager/template/:id',
+    //         element: <ConsentTemplateEditor />,
+    //     },
+    //     {
+    //         path: '/privacy-governance/consent',
+    //         element: <ConsentManager />,
+    //     },
+    //     {
+    //         path: '/privacy-governance/awareness',
+    //         element: <AwarenessManagement />,
+    //     },
+    //     {
+    //         path: '/roles-and-permissions',
+    //         element: <RightsManagement />,
+    //     },  {
+    //         path: '/roles-listing',
+    //         element: <RolesListing />,
+    //     },
+    //       {
+    //         path: '/all-Settings',
+    //         element: <Allsettings />,
+    //     },
+    //     {
+    //         path: '/Settings',
+    //         element: <SettingsPage />,
+    //     },
+    //     {
+    //         path: '/privacy-governance/impact',
+    //         element: <ImpactAssessment />,
+    //     },
+    //     {
+    //         path: '/privacy-governance/third-party',
+    //         element: <ThirdPartyAssessment />,
+    //     },
+    //        {
+    //         path: '/data-principal-activity',
+    //         element: <DataPrincipalActivity />,
+    //     },
 
 
     // {
@@ -677,11 +680,11 @@ const routes = [
         element: <ComingSoonCover />,
         layout: 'blank',
     },
-{
-  path: "*",
-  element: <ComingSoonCover />,
-  layout: 'default', // ✅ IMPORTANT: use 'default' instead of 'blank'
-},
+    {
+        path: "*",
+        element: <ComingSoonCover />,
+        layout: 'default', // ✅ IMPORTANT: use 'default' instead of 'blank'
+    },
     //   <Route path="*" element={<ComingSoon />} />
     {
         path: '/pages/error404',
@@ -823,3 +826,4 @@ const routes = [
 ];
 
 export { routes };
+
