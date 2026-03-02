@@ -12,6 +12,7 @@ import { IRootState } from "../../store";
 import { RadioCard, SimpleRadio } from "../../pages/Components/RadioCard";
 
 interface RequestType {
+  nominee_access: boolean;
   id: number;
   name: string;
 }
@@ -36,15 +37,26 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
   const navigate = useNavigate();
 
   // ================== FETCH REQUEST TYPES ==================
-  const manageUserData = async () => {
+  const fetchRightsList = async () => {
     const res = await execute(() => ConsentAPI.managerights());
     const records = res.data.data.records || [];
     setRequestTypes(records);
   };
 
   useEffect(() => {
-    manageUserData();
+    fetchRightsList();
   }, []);
+
+useEffect(() => {
+      if (category?.nominee_access == true) {  
+        navigate(`/NomineeForm/${category.id}`);
+      }
+console.log("CATEGORY CHANGED", category);
+
+
+  }, [category]);
+
+  console.log(category,"category")
 
   // ================== SUBMIT ==================
   const handleSubmit = async () => {
@@ -80,12 +92,12 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
       showMessage("Complaint submitted successfully", "success");
 
 
-      if(category.name == "Right to Nominate"){
+      if (category.nominee_access == true) {
         navigate(`/NomineeForm/${category.id}`);
-      }else{
-          navigate("/complaint-submitted");
+      } else {
+        navigate("/complaint-submitted");
       }
-    
+
 
       // reset
       setCategory(null);
@@ -119,15 +131,15 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
             <Text fw={600} mb={4}>Request Category</Text>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-           {requestTypes.map((item) => (
-  <RadioCard
-    key={item.id}
-    label={item.name}
-    value={item}
-    selected={category}
-    onSelect={setCategory}
-  />
-))}
+              {requestTypes.map((item) => (
+                <RadioCard
+                  key={item.id}
+                  label={item.name}
+                  value={item}
+                  selected={category}
+                  onSelect={setCategory}
+                />
+              ))}
 
             </div>
 
@@ -145,7 +157,7 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
                       selected={complaintCategory}
                       onSelect={setComplaintCategory}
                     />
-                    
+
                   ))}
                 </div>
               </section>
@@ -154,58 +166,58 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
 
           {/* DETAILS */}
           <div className="mb-6">
-                    <Text fw={600} mb={6}>
-                        Complaint Details
-                    </Text>
-                    <Textarea
-                        placeholder="Please provide a detailed description of your complaint."
-                        minRows={4}
-                        value={details}
-                        onChange={(e) => setDetails(e.currentTarget.value)}
-                        className="rounded-md"
-                    />
-                </div>
+            <Text fw={600} mb={6}>
+              Complaint Details
+            </Text>
+            <Textarea
+              placeholder="Please provide a detailed description of your complaint."
+              minRows={4}
+              value={details}
+              onChange={(e) => setDetails(e.currentTarget.value)}
+              className="rounded-md"
+            />
+          </div>
 
           {/* FILE */}
-     <div className="mb-6">
-                    <Text fw={600} mb={6}>
-                        Attach Files (Optional)
-                    </Text>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg py-10 px-6 text-center hover:border-red-400 transition duration-200">
-                        <UploadCloud size={36} className="text-gray-400 mx-auto mb-2" />
-                        <FileButton
-                            onChange={setFile}
-                            accept="image/png,image/jpeg,image/gif,application/pdf"
-                        >
-                            {(props) => (
-                                <button {...props} className="text-red-600 hover:underline font-medium">
-                                    Upload a file
-                                </button>
-                            )}
-                        </FileButton>
-                        <Text size="xs" c="dimmed" mt={4}>
-                            PNG, JPG, GIF up to 10MB
-                        </Text>
-                        {file && (
-                            <Text size="sm" mt="sm" className="text-gray-700">
-                                📎 {file.name}
-                            </Text>
-                        )}
-                    </div>
-                </div>
+          <div className="mb-6">
+            <Text fw={600} mb={6}>
+              Attach Files (Optional)
+            </Text>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg py-10 px-6 text-center hover:border-red-400 transition duration-200">
+              <UploadCloud size={36} className="text-gray-400 mx-auto mb-2" />
+              <FileButton
+                onChange={setFile}
+                accept="image/png,image/jpeg,image/gif,application/pdf"
+              >
+                {(props) => (
+                  <button {...props} className="text-red-600 hover:underline font-medium">
+                    Upload a file
+                  </button>
+                )}
+              </FileButton>
+              <Text size="xs" c="dimmed" mt={4}>
+                PNG, JPG, GIF up to 10MB
+              </Text>
+              {file && (
+                <Text size="sm" mt="sm" className="text-gray-700">
+                  📎 {file.name}
+                </Text>
+              )}
+            </div>
+          </div>
 
           {/* SUBMIT */}
-        <div className="flex justify-end">
-                    <Button
-                        color="red"
-                        radius="md"
-                        variant="filled"
-                        className="primary-btn"
-                        onClick={handleSubmit}
-                    >
-                        Submit Complaint
-                    </Button>
-                </div>
+          <div className="flex justify-end">
+            <Button
+              color="red"
+              radius="md"
+              variant="filled"
+              className="primary-btn"
+              onClick={handleSubmit}
+            >
+              Submit Complaint
+            </Button>
+          </div>
         </Card>
       </main>
     </>

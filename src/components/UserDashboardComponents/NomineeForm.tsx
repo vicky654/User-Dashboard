@@ -106,8 +106,8 @@ const handleSubmit = async () => {
   if (!form.relationship.trim()) newErrors.relationship = "Please select relationship.";
   if (!form.dob.trim()) newErrors.dob = "Please provide date of birth.";
 
-  if (!form.contactNumber.trim() || !validatePhone(form.contactNumber))
-    newErrors.contactNumber = "Enter a valid 10-digit mobile number.";
+  // if (!form.contactNumber.trim() || !validatePhone(form.contactNumber))
+  //   newErrors.contactNumber = "Enter a valid 10-digit mobile number.";
 
   if (!form.address.trim()) newErrors.address = "Please enter address.";
 
