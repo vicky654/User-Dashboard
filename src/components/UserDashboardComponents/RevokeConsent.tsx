@@ -7,7 +7,7 @@ import { ConsentAPI } from "../../api/domains/consent.api";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../store";
 
-
+import { use } from "i18next";
 import showMessage from "../../utils/showMessage";
 
 
