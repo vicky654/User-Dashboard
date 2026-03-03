@@ -9,12 +9,15 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/authSlice';
 import { updatePermissions } from '../../store/authSlice';
 import type { AppDispatch } from '../../store/store';
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginPage: React.FC = () => {
 
   useEffect(() => {
     localStorage.clear(); // Clear localStorage on component mount for demo purposes
   }, []);
+
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -133,16 +136,49 @@ const LoginPage: React.FC = () => {
                 >
                   Password<span className="text-red-500">*</span>
                 </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-base"
-                  placeholder="Password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="relative w-full">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className=" w-full
+      px-3
+      py-2
+      pr-11
+      rounded-lg
+      border border-gray-300
+      focus:outline-none
+      focus:ring-2
+      focus:ring-blue-300
+      text-base
+    "
+                    placeholder="Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(prev => !prev)}
+                    className="
+      absolute
+      right-3
+      top-1/2
+      -translate-y-1/2
+      flex
+      items-center
+      justify-center
+      h-5
+      w-5
+      text-gray-500
+      hover:text-gray-700
+      focus:outline-none
+    "
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {formik.touched.password && formik.errors.password && (
                   <p className="text-red-500 text-sm mt-1">
                     {formik.errors.password}
