@@ -47,19 +47,23 @@ const DataProtectionRights = ({ execute, isLoading }: ApiProps) => {
     fetchRightsList();
   }, []);
 
-useEffect(() => {
-      if (category?.nominee_access == true) {  
-        navigate(`/NomineeForm/${category.id}`);
-      }
-console.log("CATEGORY CHANGED", category);
+// useEffect(() => {
+//       if (category?.nominee_access == true) {  
+//         navigate(`/NomineeForm/${category.id}`);
+//       }
+// console.log("CATEGORY CHANGED", category);
 
 
-  }, [category]);
+//   }, [category]);
 
   console.log(category,"category")
 
   // ================== SUBMIT ==================
   const handleSubmit = async () => {
+
+    if (category?.nominee_access == true) {  
+        navigate(`/NomineeForm/${category.id}`);
+      }
     if (!category) {
       showMessage("Please select request category", "error");
       return;

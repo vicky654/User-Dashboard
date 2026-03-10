@@ -151,6 +151,7 @@ const RightsGrievanceHistory: React.FC<ApiProps> = ({ execute, isLoading }) => {
             color="red"
             radius="md"
             leftIcon={<Plus size={16} />}
+            onClick={() => navigate("/data-protection-rights")}
           >
             Access Rights
           </Button>
