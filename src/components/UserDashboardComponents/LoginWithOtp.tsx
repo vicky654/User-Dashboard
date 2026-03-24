@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Card, Button, TextInput, Text } from "@mantine/core";
+import { Card, Button, TextInput, Text, Radio, Group } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 const LoginWithOtp: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
+  const [loginAs, setLoginAs] = useState("nominee"); // default selected
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -12,9 +13,10 @@ const LoginWithOtp: React.FC = () => {
       return;
     }
 
-    // Normally you'd call an API here to send the OTP
+    console.log("Login As:", loginAs);
     console.log("OTP sent to:", inputValue);
-    navigate("/verify-otp"); // navigate to OTP verification screen
+
+    navigate("/verify-otp");
   };
 
   return (
@@ -26,10 +28,56 @@ const LoginWithOtp: React.FC = () => {
         className="w-full max-w-sm p-8 text-center bg-white"
       >
         {/* Title */}
-        <h1 className="text-xl font-semibold mb-1">Perfect!</h1>
-        <Text size="sm" c="dimmed" mb={20}>
+        <h1 className="text-2xl font-bold mb-1">Perfect!</h1>
+        <Text size="sm" c="dimmed" mb={15}>
           Now let’s get you logged in.
         </Text>
+
+        {/* Radio Section */}
+        <Text size="sm" mb={8}>
+          Login as:
+        </Text>
+
+        <Radio.Group
+          value={loginAs}
+          onChange={setLoginAs}
+          mb={20}
+        >
+          <div className="w-full flex justify-center">
+            <Group>
+              <Radio
+                value="principal"
+                label="Data Principal"
+                styles={{
+                  radio: {
+                    width: 17,
+                    height: 17,
+                  },
+                  icon: {
+                    width: 9,
+                    height: 9,
+                  },
+                }}
+              />
+
+              <Radio
+                value="nominee"
+                label="Nominee"
+                color="red"
+                styles={{
+                  radio: {
+                    width: 17,
+                    height: 17,
+                  },
+                  icon: {
+                    width: 9,
+                    height: 9,
+                  },
+                }}
+              />
+            </Group>
+          </div>
+        </Radio.Group>
 
         {/* Input Field */}
         <TextInput
@@ -45,7 +93,7 @@ const LoginWithOtp: React.FC = () => {
           fullWidth
           color="red"
           radius="md"
-          className="primary-btn"
+          className="bg-red-500 hover:bg-red-600"
           onClick={handleLogin}
         >
           Login with OTP

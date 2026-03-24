@@ -16,7 +16,7 @@ const UserHeaderLogo: React.FC = () => {
         />
       </svg>
       <span className="text-lg font-semibold text-gray-800">
-        Consent Manager
+        Consent Manager 
       </span>
     </div>
   );

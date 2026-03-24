@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Text, Group } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Modal, Button } from "@mantine/core";
 
 interface VerifyIdentityModalProps {
   opened: boolean;
@@ -13,14 +12,20 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
   onClose,
   onVerify,
 }) => {
-  const [otp, setOtp] = useState(Array(6).fill(""));
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [timeLeft, setTimeLeft] = useState(60);
   const [resendActive, setResendActive] = useState(false);
 
-  // ⏱ Countdown timer
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+
+  // ================= TIMER =================
   useEffect(() => {
     if (!opened) return;
+
+    setOtp(Array(6).fill(""));
     setTimeLeft(60);
+    setResendActive(false);
+
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -31,39 +36,62 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
         return prev - 1;
       });
     }, 1000);
+
     return () => clearInterval(interval);
   }, [opened]);
 
+  // ================= INPUT CHANGE =================
   const handleChange = (index: number, value: string) => {
     if (!/^[0-9]?$/.test(value)) return;
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // move to next input
     if (value && index < 5) {
-      const next = document.getElementById(`otp-${index + 1}`);
-      next?.focus();
+      inputsRef.current[index + 1]?.focus();
     }
   };
-  const navigate = useNavigate();
 
-  const handleVerify = () => {
-
-    navigate("/nominee/summary");
-    // const code = otp.join("");
-    // if (code.length === 6) {
-    //   onVerify(code);
-    //   setOtp(Array(6).fill(""));
-    // } else {
-    //   alert("Please enter all 6 digits of the code.");
-    // }
+  // ================= BACKSPACE SUPPORT =================
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    }
   };
 
+  // ================= PASTE SUPPORT =================
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasteData = e.clipboardData.getData("text").trim();
+
+    if (!/^\d{6}$/.test(pasteData)) return;
+
+    const digits = pasteData.split("");
+    setOtp(digits);
+
+    inputsRef.current[5]?.focus();
+  };
+
+  // ================= VERIFY =================
+  const handleVerifyClick = () => {
+    const code = otp.join("");
+
+    if (code.length !== 6) {
+      alert("Please enter complete OTP");
+      return;
+    }
+
+    onVerify(code);
+  };
+
+  // ================= RESEND =================
   const handleResend = () => {
     setTimeLeft(60);
     setResendActive(false);
-    alert("Verification code resent!");
+    // 👉 yaha future me resend API call laga sakte ho
   };
 
   return (
@@ -80,10 +108,14 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
       }}
     >
       <div className="text-center">
-        <h2 className="text-lg font-semibold mb-1">Verify your identity</h2>
+        <h2 className="text-lg font-semibold mb-1">
+          Verify your identity
+        </h2>
+
         <p className="text-gray-600 text-sm mb-5">
-          We’ve sent a 6-digit code to your registered device. <br /> Please
-          enter it below.
+          We’ve sent a 6-digit code to your registered device.
+          <br />
+          Please enter it below.
         </p>
 
         {/* OTP Inputs */}
@@ -91,11 +123,15 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
           {otp.map((digit, index) => (
             <input
               key={index}
-              id={`otp-${index}`}
+              ref={(el) => (inputsRef.current[index] = el)}
               type="text"
               maxLength={1}
               value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
+              onChange={(e) =>
+                handleChange(index, e.target.value)
+              }
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              onPaste={handlePaste}
               className="w-10 h-12 text-center border border-gray-300 rounded-md text-lg font-semibold focus:border-red-500 focus:outline-none"
             />
           ))}
@@ -104,12 +140,11 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
         {/* Verify Button */}
         <Button
           fullWidth
-             color="red"
-                        radius="md"
-                        variant="filled"
-                        className="primary-btn mb-4"
-          onClick={handleVerify}
-      
+          color="red"
+          radius="md"
+          variant="filled"
+          className="primary-btn mb-4"
+          onClick={handleVerifyClick}
         >
           Verify
         </Button>
@@ -133,10 +168,12 @@ const VerifyIdentityModal: React.FC<VerifyIdentityModalProps> = ({
           )}
         </div>
 
-        {/* Help Link */}
         <p className="text-xs text-gray-500 mt-3">
           Need help?{" "}
-          <a href="#" className="text-red-500 hover:underline font-medium">
+          <a
+            href="#"
+            className="text-red-500 hover:underline font-medium"
+          >
             Contact Support
           </a>
         </p>

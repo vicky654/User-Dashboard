@@ -16,6 +16,23 @@ import RequestsFormGrievanceRedressalOptions from '../components/UserDashboardCo
 import RevokeConsent from '../components/UserDashboardComponents/RevokeConsent';
 import RightsGrievanceHistory from '../components/UserDashboardComponents/RightsGrievanceHistory';
 import VerifyOtp from '../components/UserDashboardComponents/VerifyOtp';
+import NomineeConsentNotice from '../components/UserDashboardComponents/NomineeConsentNotice';
+import ConsentDeclined from '../components/UserDashboardComponents/ConsentDeclined';
+import AgeVerificationProgress from '../components/UserDashboardComponents/AgeVerificationProgress';
+import NomineeAgeVerified from '../components/UserDashboardComponents/NomineeAgeVerified';
+import NomineeRequestFailed from '../components/UserDashboardComponents/NomineeRequestFailed';
+import NomineeValidationFailed from '../components/UserDashboardComponents/NomineeValidationFailed';
+import NomineeValidatedSuccessfully from '../components/UserDashboardComponents/NomineeValidatedSuccessfully';
+import NominationRequest from '../components/UserDashboardComponents/NominationRequest';
+import NomineeAuthorization from '../components/UserDashboardComponents/NomineeAuthorization';
+import SubmitDataRightRequest from '../components/UserDashboardComponents/SubmitDataRightRequest';
+import RequestDetails from '../components/UserDashboardComponents/RequestDetails';
+import TrackRequests from '../components/UserDashboardComponents/TrackRequests';
+import NomineeSettings from '../components/UserDashboardComponents/NomineeSettings';
+import RevokeNomineeConsentModal from '../components/UserDashboardComponents/RevokeNomineeConsentModal';
+import WithdrawConsentModal from '../components/UserDashboardComponents/WithdrawConsentModal';
+import AccountClosedSuccess from '../components/UserDashboardComponents/AccountClosedSuccess';
+import NomineeAuthenticationFailed from '../components/UserDashboardComponents/NomineeAuthenticationFailed';
 
 
 const Index = lazy(() => import('../pages/Index'));
@@ -193,6 +210,88 @@ const routes = [
         path: '/verify-otp',
         element: <VerifyOtp />,
     },
+    {
+        path: '/nominee-consent-notice',
+        element: <NomineeConsentNotice />,
+    },
+
+     {
+        path: '/consent-declined',
+        element: <ConsentDeclined />,
+    },
+
+    {
+        path: '/age-verification-progress',
+        element: <AgeVerificationProgress />,
+    },
+    {
+        path: '/nominee-age-verified',
+        element: <NomineeAgeVerified />,
+    },
+
+    {
+        path: '/nominee-request-failed',
+        element: <NomineeRequestFailed />,
+    },
+
+    {
+        path: '/nominee-validation-failed',
+        element: <NomineeValidationFailed />,
+    },
+
+    {
+        path: '/nominee-validated-successfully',
+        element: <NomineeValidatedSuccessfully />,
+    },
+
+    {
+        path: '/nomination-request',
+        element: <NominationRequest />,
+    },
+    {
+        path: '/nominee-authorization',
+        element: <NomineeAuthorization />,
+    },
+    {
+        path: '/submit-data-right-request',
+        element: <SubmitDataRightRequest />,
+    },
+     {
+        path: '/track-requests',
+        element: <TrackRequests />,
+    },
+     {
+        path: '/request-details',
+        element: <RequestDetails />,
+    },
+
+     {
+        path: '/nominee-settings',
+        element: <NomineeSettings />,
+    },
+    {
+        path: '/revoke-nominee-consent-modal',
+        element: <RevokeNomineeConsentModal onClose={() => {}} onConfirm={() => {}} />,
+    },
+    {
+        path: '/withdraw-consent-modal',
+        element: <WithdrawConsentModal onClose={undefined} />,
+    },
+    {
+        path: '/account-closed-success',
+        element: <AccountClosedSuccess />,
+    },
+     {
+        path: '/nominee-authentication-failed',
+        element: <NomineeAuthenticationFailed />,
+    },
+    {
+        path: '/nomination-summary',
+        element: <NominationSummary />,
+    },
+
+    
+
     {
         path: '/language-selection',
         element: <LanguageSelection />,

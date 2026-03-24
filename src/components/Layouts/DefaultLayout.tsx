@@ -11,6 +11,7 @@ import Portals from '../../components/Portals';
 
 import Dsidebar from './Dsidebar';
 import UserHeader from './UserHeader';
+import NomineeHeader from './NomineeHeader';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
@@ -86,6 +87,8 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
                     {/* <Dsidebar /> */}
                     {/* END SIDEBAR */}
                     <UserHeader />
+                      <NomineeHeader />
+
                     <div className="main-content flex flex-col min-h-screen">
                         {/* BEGIN TOP NAVBAR */}
 

@@ -88,6 +88,7 @@ DataProtectionRights:{
 Nominee :{
   request:"/request/user-dashboard",
   create:"/request/create",
+  sendOtp:"/request/send-otp",
   nomineerelations: "/nominee-relations",
 },
  

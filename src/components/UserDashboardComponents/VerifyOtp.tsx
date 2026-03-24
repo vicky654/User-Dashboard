@@ -94,7 +94,7 @@ const VerifyOtp: React.FC = () => {
           size="md"
           className="primary-btn"
           mb={16}
-          onClick={handleVerify}
+          onClick={()=> navigate("/nominee-consent-notice")}
         >
           Verify
         </Button>

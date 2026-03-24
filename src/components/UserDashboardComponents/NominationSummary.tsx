@@ -42,7 +42,7 @@ const NominationSummary: React.FC = () => {
   };
 
   return (
-    <main className="bg-gray-50 min-h-screen p-8 flex justify-center">
+    <main className="bg-gray-50 min-h-screen p-8 flex justify-center"> 
       <div className="max-w-3xl w-full">
         {/* Title */}
         <h1 className="text-xl font-semibold text-gray-900 mb-6">
@@ -53,11 +53,11 @@ const NominationSummary: React.FC = () => {
         <Card withBorder radius="md" shadow="sm" className="bg-white">
           {/* Section 1 */}
           <div className="flex justify-between items-center mb-3">
-            <h2 className="font-medium text-gray-800">Nominee Details</h2>
-            <button className="flex items-center text-sm text-gray-500 hover:text-red-600 transition">
+            <h2 className="font-bold text-lg text-black-800">Nominee Details</h2>
+            {/* <button className="flex items-center text-sm text-gray-500 hover:text-red-600 transition">
               <Pencil size={14} className="mr-1" />
               Edit
-            </button>
+            </button> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 text-sm mb-4">
@@ -106,7 +106,7 @@ const NominationSummary: React.FC = () => {
 
           {/* Section 2 */}
           <div className="mb-3">
-            <h3 className="font-medium text-gray-800 mb-2">
+            <h3 className="font-bold text-lg text-black-800 mb-2">
               Relationship with Data Principal
             </h3>
             <div>
@@ -167,14 +167,14 @@ const NominationSummary: React.FC = () => {
             className="px-6 primary-btn"
            
           >
-            Add Nominee
+            Nominee Request Status
           </Button>
           <Button
             variant="outline"
             color="red"
             radius="md"
             className="px-6"
-            onClick={() => alert("Cancelled")}
+            onClick={() => navigate("/nominee/status")}
           >
             Cancel
           </Button>
