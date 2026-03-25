@@ -48,12 +48,7 @@ function App({ children, execute }: PropsWithChildren & any) {
     themeConfig.locale,
     themeConfig.semidark,
   ]);
-<<<<<<< HEAD
-   const handleApiError = useErrorHandler();
-
-=======
     const handleApiError = useErrorHandler();
->>>>>>> bba60b802440fe120d7a8c2a57de1978841733b5
   const loadAdminData = async () => {
     try {
       const response = await execute(() => fetchAdminData());
@@ -64,12 +59,7 @@ function App({ children, execute }: PropsWithChildren & any) {
       dispatch(updateProcessingActivities(response?.data?.data?.processing_activities));
       dispatch(updateBreach_templates(response?.data?.data?.Breach_templates));
     } catch (error) {
-<<<<<<< HEAD
-       
-      handleApiError(error);
-=======
         handleApiError(error);
->>>>>>> bba60b802440fe120d7a8c2a57de1978841733b5
       console.error("Admin API Failed:", error);
     }
   };
