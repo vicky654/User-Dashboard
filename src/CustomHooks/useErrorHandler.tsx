@@ -28,7 +28,10 @@ const useErrorHandler = () => {
         if (error.response && error.response.data) {
             const { status_code, message, code } = error.response.data;
             if (status_code == 401 || code == 401) {
+<<<<<<< HEAD
                 console.error("Unauthorized access - Invalid token");
+=======
+>>>>>>> bba60b802440fe120d7a8c2a57de1978841733b5
                 navigate('/login');
                 showMessage('Invalid access token', 'error');
 

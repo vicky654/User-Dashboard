@@ -36,7 +36,11 @@ export const ENDPOINTS = {
   request: {
     base: "/request/",
     create: "/request-types/create",
+<<<<<<< HEAD
     requesttype: "request-types/",
+=======
+    requesttype:"consent/portal-user-consents",
+>>>>>>> bba60b802440fe120d7a8c2a57de1978841733b5
     detail: "/request/details",
     details: (id: number | string) => `/request/${id}`,
     export: "/request/export",
